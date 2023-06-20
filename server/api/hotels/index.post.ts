@@ -1,7 +1,5 @@
-import {hotelSchema} from "../../hotelSchema";
-import {model} from 'mongoose';
+import {Hotel} from "./index.get";
 
-export const Hotel = model<any>('Hotel', hotelSchema);
 export default defineEventHandler(async () => {
     try {
         return Hotel.find();
@@ -9,4 +7,3 @@ export default defineEventHandler(async () => {
         console.log(e);
     }
 });
-
