@@ -1,7 +1,5 @@
-import {hotelSchema} from "../../hotelSchema";
-import {model} from 'mongoose';
+import {Hotel} from "../../hotel";
 
-export const Hotel = model<any>('Hotel', hotelSchema);
 export default defineEventHandler(async () => {
     try {
         return Hotel.find();

@@ -1,6 +1,6 @@
-import {Schema} from "mongoose";
+import {model, Schema} from "mongoose";
 
-export const hotelSchema = new Schema({
+export const hotel = new Schema({
     id: String,
     name: String,
     location: {
@@ -28,3 +28,5 @@ export const hotelSchema = new Schema({
     reviewsScore: Number,
     promoted: Boolean
 });
+
+export const Hotel = model<any>('Hotel', hotel);
