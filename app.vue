@@ -1,8 +1,16 @@
 <template>
   <div>
-    <InsertHotelsForm/>
+    <NuxtLayout name="custom">
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
-<script setup lang="ts">
-import InsertHotelsForm from "~/components/InsertHotelsForm.vue";
-</script>
+
+<style>
+body {
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
+</style>

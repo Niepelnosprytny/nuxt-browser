@@ -36,7 +36,7 @@ function handleRequest(req: IncomingMessage) {
             multiples: true,
             encoding: "utf-8",
             uploadDir: "data",
-            filename: "hotels.json"
+            filename: () => { return "hotels.json" },
         });
 
         //Here file is being parsed by Formidable
