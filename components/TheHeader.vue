@@ -1,7 +1,7 @@
 <template>
   <NuxtLink to="/">
     <nav>
-      <h1>sEbooking.com</h1>
+      <h1>seBooking.com</h1>
     </nav>
   </NuxtLink>
 </template>

@@ -1,9 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// @ts-ignore
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   //@ts-ignore
+  build: {
+    transpile: ['@vuepic/vue-datepicker']
+  },
+
   nitro: {
     plugins: ["~/server/index.ts"],
   },
