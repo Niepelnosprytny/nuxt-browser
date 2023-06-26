@@ -5,11 +5,29 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 const date = ref();
 
+let hotels = ref([]);
+
+const Search = async (event) => {
+  //@ts-ignore
+  hotels.value = await useFetch("/api/hotels", { headers: {
+      "form": JSON.stringify({
+        city: event.target.city.value,
+        date: event.target.date.value,
+        guests: event.target.guests.value
+      })}}).data;
+}
+
 const { data: cities } = await useFetch('/api/cities');
 </script>
 
 <template>
-  <form>
+  <div v-for="hotel in hotels.value">
+    <p>{{ hotel.location.city }}</p>
+    <ul>
+      <li v-for="room in hotel.rooms">maxGuests: {{ room.maxGuests }} available: {{ room.available }}</li>
+    </ul>
+  </div>
+  <form @submit.prevent="Search">
     <input type="search"
            name="city"
            class="searchInput"
