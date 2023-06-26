@@ -9,7 +9,7 @@ async function submitFile (event: { currentTarget: HTMLFormElement | undefined; 
   }).then(
       () => {
         loading = false;
-        alert("Database has been updates successfully");
+        alert("Database has been updated successfully");
         navigateTo("/");
       }
   ).catch(
@@ -25,13 +25,13 @@ async function submitFile (event: { currentTarget: HTMLFormElement | undefined; 
   <form v-if="!loading"
         enctype="multipart/form-data"
         @submit.prevent="submitFile">
-    <h2>Select file to insert</h2>
+    <h2>Select data file</h2>
     <input type="file"
            name="file"
            accept="application/json"
            required>
     <br><br>
-    <button>Submit</button>
+    <button>Update</button>
   </form>
   <h3 v-else>Processing...</h3>
 </template>

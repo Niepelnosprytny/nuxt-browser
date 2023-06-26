@@ -15,7 +15,11 @@ export default defineEventHandler(async (event) => {
             const hotels = JSON.parse(fs.readFileSync('data/hotels.json', 'utf-8'));
 
             try {
-                await Hotel.insertMany(hotels);
+                if(await Hotel.count() === 0) {
+                    await Hotel.insertMany(hotels);
+                } else {
+                    await Hotel.updateMany( { "id": { "$eq": "id" } }, { "$set": hotels } );
+                }
                 console.log('Done!');
                 process.exit();
             } catch(e) {
