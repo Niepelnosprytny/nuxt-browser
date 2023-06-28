@@ -2,12 +2,21 @@
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import {add} from "date-fns";
 
 const date = ref();
-
+let minDate: Date | String;
 let hotels = ref([]);
 
-const Search = async (event) => {
+if(new Date().getHours() > 15) {
+  minDate = add(new Date(), {
+    days: 1,
+  });
+} else {
+  minDate = new Date();
+}
+
+const Search = async (event: any) => {
   //@ts-ignore
   hotels.value = await useFetch("/api/hotels", { headers: {
       "form": JSON.stringify({
@@ -45,10 +54,9 @@ const { data: cities } = await useFetch('/api/cities');
                    text-input
                    auto-apply
                    prevent-min-max-navigation
-                   ignore-time-validation
                    input-class-name="dateInput"
                    placeholder="Select date"
-                   :min-date="new Date()"
+                   :min-date="minDate"
                    format="dd MMMM yyyy (EEEE)"
                    :enable-time-picker="false"
                    :partial-range="false"
