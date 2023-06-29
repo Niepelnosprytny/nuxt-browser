@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import {Ref, ref} from 'vue';
+import { useHotelsStore } from '~/store/store';
+import { storeToRefs } from "pinia";
 
-let hotels: Ref = ref([]);
+const store = useHotelsStore();
+const { hotels } = storeToRefs(store);
+const { searchHotels } = store;
 
 async function Search (form: JSON) {
-  hotels.value = await useFetch("/api/hotels", {
-    query: {
-      "form": form
-    }
-  }).data;
+  await searchHotels(form);
 }
 </script>
 

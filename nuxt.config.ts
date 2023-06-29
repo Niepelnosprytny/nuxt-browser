@@ -7,6 +7,8 @@ export default defineNuxtConfig({
     transpile: ['@vuepic/vue-datepicker']
   },
 
+  modules: ['@pinia/nuxt'],
+
   nitro: {
     plugins: ["~/server/index.ts"],
   },
