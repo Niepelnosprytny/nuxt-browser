@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {add} from "date-fns";
+import { useHotelsStore } from '~/store/store';
 
-const emit = defineEmits(['search']);
+const store = useHotelsStore();
+const { searchHotels } = store;
 
 const date = ref();
 let minDate: Date | String;
@@ -23,7 +25,7 @@ const Search = async (event: any) => {
     date: date["_rawValue"],
     guests: event.target.guests.value
   };
-  emit('search', JSON.stringify(form));
+  await searchHotels(form);
 }
 
 const { data: cities } = await useFetch('/api/cities');
