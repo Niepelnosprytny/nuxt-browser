@@ -3,10 +3,13 @@ import * as querystring from "querystring";
 
 export default defineEventHandler(async (event) => {
     const form = JSON.parse(
+        //@ts-ignore
         querystring.decode(
+            //@ts-ignore
             event.node.req.url?.split("?")[1]
         ).form
     );
+
     try {
         const hotels = await Hotel.find({
             "location.city": `${form.city}`,

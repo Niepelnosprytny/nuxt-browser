@@ -20,7 +20,7 @@ if(new Date().getHours() > 15) {
 const Search = async (event: any) => {
   const form = {
     city: event.target.city.value,
-    date: event.target.date.value,
+    date: date["_rawValue"],
     guests: event.target.guests.value
   };
   emit('search', JSON.stringify(form));
