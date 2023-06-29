@@ -4,32 +4,33 @@ import {Hotel} from "../../hotel";
 import * as fs from 'fs';
 
 export default defineEventHandler(async (event) => {
+    try {
+        //Picks form from request, then takes file from it and saves it on server as "hotels.json"
+        await handleRequest(event.node.req).then(
 
-    //Picks form from request, then takes file from it and saves it on server as "hotels.json"
-    await handleRequest(event.node.req).then(
+            //After saving file pushes data into mongoDB
+            async function () {
 
-        //After saving file pushes data into mongoDB
-        async function () {
+                //loads hotels from file
+                const hotels = JSON.parse(fs.readFileSync('data/hotels.json', 'utf-8'));
 
-            //loads hotels from file
-            const hotels = JSON.parse(fs.readFileSync('data/hotels.json', 'utf-8'));
-
-            try {
-                if(await Hotel.count() === 0) {
-                    await Hotel.insertMany(hotels);
-                } else {
-                    await Hotel.updateMany( { "id": { "$eq": "id" } }, { "$set": hotels } );
+                try {
+                    if(await Hotel.count() === 0) {
+                        await Hotel.insertMany(hotels);
+                    } else {
+                        await Hotel.updateMany( { "id": { "$eq": "id" } }, { "$set": hotels } );
+                    }
+                    console.log('Done!');
+                } catch(e) {
+                    console.log(e);
                 }
-                console.log('Done!');
-                process.exit();
-            } catch(e) {
-                console.log(e);
-                process.exit();
             }
-        }
-    );
+        );
 
-    return {ok: true};
+        return { ok: true };
+    } catch (e) {
+        return { e };
+    }
 });
 
 function handleRequest(req: IncomingMessage) {

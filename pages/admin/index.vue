@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import {navigateTo, reloadNuxtApp} from "#app";
+
 let loading = false;
 
-async function submitFile (event: { currentTarget: HTMLFormElement | undefined; }) {
+async function submitFile(event: { currentTarget: HTMLFormElement | undefined; }) {
   loading = true;
   await fetch("/api/hotels", {
     method: "POST",
     body: new FormData(event.currentTarget)
   }).then(
-      () => {
-        loading = false;
-        alert("Database has been updated successfully");
-        navigateTo("/");
+      async (res) => {
+        if (res.status === 200) {
+          loading = false;
+          alert("Database has been updated successfully");
+          await navigateTo("/");
+        }
       }
   ).catch(
       (e) => {

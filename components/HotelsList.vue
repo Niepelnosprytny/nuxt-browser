@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   hotels: {
-    type: Array,
+    type: undefined,
     required: true
   },
 })

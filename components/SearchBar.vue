@@ -18,7 +18,12 @@ if(new Date().getHours() > 15) {
 }
 
 const Search = async (event: any) => {
-  emit('search', event);
+  const form = {
+    city: event.target.city.value,
+    date: event.target.date.value,
+    guests: event.target.guests.value
+  };
+  emit('search', JSON.stringify(form));
 }
 
 const { data: cities } = await useFetch('/api/cities');
@@ -65,7 +70,7 @@ const { data: cities } = await useFetch('/api/cities');
 
 <style scoped>
 form {
-  margin: 0 10%;
+  margin: 0 10% 5% 10%;
 }
 
 button {
