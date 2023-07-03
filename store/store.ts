@@ -1,15 +1,26 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 
 export const useHotelsStore = defineStore('hotelsStore', () => {
     const hotels = ref([]);
+    const promotedHotels = ref([]);
 
     async function searchHotels(form: any) {
-        hotels.value = await useFetch("/api/hotels", {
+        await useFetch("/api/hotels", {
             query: {
                 "form": form
             }
-        }).data;
+        }).then(
+            (res) => {
+                let data = res.data.value;
+                this.promotedHotels = data.filter(hotel => hotel.promoted === true);
+                this.hotels = data.filter(hotel => hotel.promoted === false);
+            }
+        );
     }
 
-    return { searchHotels, hotels }
+    return {
+        searchHotels,
+        hotels,
+        promotedHotels
+    }
 })
