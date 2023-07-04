@@ -1,19 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+    devtools: {enabled: true},
 
-  //@ts-ignore
-  build: {
-    transpile: ['@vuepic/vue-datepicker']
-  },
+    //@ts-ignore
+    build: {
+        transpile: ['@vuepic/vue-datepicker']
+    },
 
-  modules: ['@pinia/nuxt'],
+    modules: ['@pinia/nuxt'],
 
-  nitro: {
-    plugins: ["~/server/index.ts"],
-  },
+    nitro: {
+        plugins: ["~/server/index.ts"],
+    },
 
-  runtimeConfig: {
-    mongodbUri: process.env.MONGODB_URI
-  }
+    runtimeConfig: {
+        mongodbUri: process.env.MONGODB_URI
+    }
 })
