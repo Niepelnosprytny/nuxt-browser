@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useHotelsStore} from '~/store/store';
 import {storeToRefs} from "pinia";
-import TheList from "~/components/TheList.vue";
 
 const store = useHotelsStore();
 const {hotels, promotedHotels} = storeToRefs(store);
@@ -56,8 +55,10 @@ watch(sortBy, async (currentValue) => {
 
   <label for="minReviewsScore">Mininal reviews score</label>
   <input v-model="minReviewsScore"
-         type="number"
+         type="text"
          id="minReviewsScore"
+         min="0"
+         step="0.1"
          oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
   <label for="breakfast">Breakfast</label>
@@ -67,13 +68,13 @@ watch(sortBy, async (currentValue) => {
   <input v-model="parking" type="checkbox" id="parking">
   <br>
 
-  <TheList v-if="promotedHotels !== []"
+  <HotelList v-if="promotedHotels !== []"
            :hotels="promotedHotels"
            :breakfast="breakfast"
            :parking="parking"
            :stars="stars"
            :minReviewsScore="minReviewsScore"/>
-  <TheList v-if="hotels !== []"
+  <HotelList v-if="hotels !== []"
            :hotels="hotels"
            :breakfast="breakfast"
            :parking="parking"
