@@ -14,7 +14,8 @@ const {
 
 const breakfast = ref(false);
 const parking = ref(false);
-const stars = ref("1");
+const stars = ref("0");
+const minReviewsScore = ref("0");
 const sortBy = ref("reviewsAsc");
 
 watch(sortBy, async (currentValue) => {
@@ -45,12 +46,19 @@ watch(sortBy, async (currentValue) => {
   </select>
 
   <select name="stars" v-model="stars">
+    <option>0</option>
     <option>1</option>
     <option>2</option>
     <option>3</option>
     <option>4</option>
     <option>5</option>
   </select>
+
+  <label for="minReviewsScore">Mininal reviews score</label>
+  <input v-model="minReviewsScore"
+         type="number"
+         id="minReviewsScore"
+         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
   <label for="breakfast">Breakfast</label>
   <input v-model="breakfast" type="checkbox" id="breakfast">
@@ -63,10 +71,12 @@ watch(sortBy, async (currentValue) => {
            :hotels="promotedHotels"
            :breakfast="breakfast"
            :parking="parking"
-           :stars="stars"/>
+           :stars="stars"
+           :minReviewsScore="minReviewsScore"/>
   <TheList v-if="hotels !== []"
            :hotels="hotels"
            :breakfast="breakfast"
            :parking="parking"
-           :stars="stars"/>
+           :stars="stars"
+           :minReviewsScore="minReviewsScore"/>
 </template>

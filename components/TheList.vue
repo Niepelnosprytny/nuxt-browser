@@ -15,6 +15,10 @@ defineProps({
   stars: {
     type: String,
     required: true
+  },
+  minReviewsScore: {
+    type: String,
+    required: true
   }
 });
 </script>
@@ -24,7 +28,8 @@ defineProps({
     <div v-for="room in hotel.rooms" :key="hotel.id">
       <div v-if="(breakfast ? room.breakfast === true : true)
         && (parking ? hotel.metadata.parking === true : true)
-        && (stars <= hotel.stars)">
+        && (stars <= hotel.stars)
+        && (minReviewsScore <= hotel.reviewsScore)">
         <h3>{{ hotel.name }}</h3>
         <h4>{{ room.price }} PLN</h4>
         <p>City: {{ hotel.location.city }}</p>
