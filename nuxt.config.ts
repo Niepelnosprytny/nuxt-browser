@@ -9,6 +9,13 @@ export default defineNuxtConfig({
 
     modules: ['@pinia/nuxt'],
 
+    pinia: {
+        autoImports: [
+            'defineStore',
+            ['defineStore', 'definePiniaStore'],
+        ],
+    },
+
     nitro: {
         plugins: ["~/server/index.ts"],
     },

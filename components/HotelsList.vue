@@ -15,7 +15,7 @@ const stars = ref(3);
   <select name="sortBy">
     <option>Price ascending</option>
     <option>Price descending</option>
-    <option>Reviews ascending</option>
+    <option selected>Reviews ascending</option>
     <option>Reviews descending</option>
   </select>
 
@@ -37,7 +37,8 @@ const stars = ref(3);
   <div v-if="hotels !== []" v-for="hotel in promotedHotels">
     <div v-for="room in hotel.rooms" :key="hotel.id">
       <div v-if="(breakfast ? room.breakfast === true : true)
-        && (parking ? hotel.metadata.parking === true : true)">
+        && (parking ? hotel.metadata.parking === true : true)
+        && (stars <= hotel.stars)">
         <h3>{{ hotel.name }}</h3>
         <p>City: {{ hotel.location.city }}</p>
         <p>Stars: {{ hotel.stars }}</p>

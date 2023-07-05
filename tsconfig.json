@@ -4,7 +4,8 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "types": [
-      "@nuxt/types"
+      "@nuxt/types",
+      "@pinia/nuxt"
     ]
   }
 }
