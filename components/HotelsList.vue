@@ -1,22 +1,47 @@
 <script setup lang="ts">
 import {useHotelsStore} from '~/store/store';
 import {storeToRefs} from "pinia";
+import TheList from "~/components/TheList.vue";
 
 const store = useHotelsStore();
 const {hotels, promotedHotels} = storeToRefs(store);
+const {
+  sortByPriceAsc,
+  sortByPriceDesc,
+  sortByReviewsAsc,
+  sortByReviewsDesc
+} = store;
 
 const breakfast = ref(false);
 const parking = ref(false);
-const stars = ref(3);
+const stars = ref("1");
+const sortBy = ref("reviewsAsc");
+
+watch(sortBy, async (currentValue) => {
+  switch (currentValue) {
+    case "priceAsc":
+      sortByPriceAsc();
+      break;
+    case "priceDesc":
+      sortByPriceDesc();
+      break;
+    case "reviewsAsc":
+      sortByReviewsAsc();
+      break;
+    case "reviewsDesc":
+      sortByReviewsDesc();
+      break;
+  }
+});
 </script>
 
 <template>
   <h3>Filters</h3>
-  <select name="sortBy">
-    <option>Price ascending</option>
-    <option>Price descending</option>
-    <option selected>Reviews ascending</option>
-    <option>Reviews descending</option>
+  <select v-model="sortBy">
+    <option value="priceAsc">Price ascending</option>
+    <option value="priceDesc">Price descending</option>
+    <option value="reviewsAsc" selected>Reviews ascending</option>
+    <option value="reviewsDesc">Reviews descending</option>
   </select>
 
   <select name="stars" v-model="stars">
@@ -34,36 +59,14 @@ const stars = ref(3);
   <input v-model="parking" type="checkbox" id="parking">
   <br>
 
-  <div v-if="hotels !== []" v-for="hotel in promotedHotels">
-    <div v-for="room in hotel.rooms" :key="hotel.id">
-      <div v-if="(breakfast ? room.breakfast === true : true)
-        && (parking ? hotel.metadata.parking === true : true)
-        && (stars <= hotel.stars)">
-        <h3>{{ hotel.name }}</h3>
-        <p>City: {{ hotel.location.city }}</p>
-        <p>Stars: {{ hotel.stars }}</p>
-        <p>Reviews score: {{ hotel.reviewsScore }}</p>
-        <p>Parking: {{ hotel.metadata.parking }}</p>
-        <p>Promoted: {{ hotel.promoted }}</p>
-        <p>Price: {{ room.price }}</p>
-        <p>Breakfast: {{ room.breakfast }}</p>
-      </div>
-    </div>
-  </div>
-  <div v-if="hotels !== []" v-for="hotel in hotels">
-    <div v-for="room in hotel.rooms" :key="hotel.id">
-      <div v-if="(breakfast ? room.breakfast === true : true)
-        && (parking ? hotel.metadata.parking === true : true)
-        && (stars <= hotel.stars)">
-        <h3>{{ hotel.name }}</h3>
-        <p>City: {{ hotel.location.city }}</p>
-        <p>Stars: {{ hotel.stars }}</p>
-        <p>Reviews score: {{ hotel.reviewsScore }}</p>
-        <p>Parking: {{ hotel.metadata.parking }}</p>
-        <p>Promoted: {{ hotel.promoted }}</p>
-        <p>Price: {{ room.price }}</p>
-        <p>Breakfast: {{ room.breakfast }}</p>
-      </div>
-    </div>
-  </div>
+  <TheList v-if="promotedHotels !== []"
+           :hotels="promotedHotels"
+           :breakfast="breakfast"
+           :parking="parking"
+           :stars="stars"/>
+  <TheList v-if="hotels !== []"
+           :hotels="hotels"
+           :breakfast="breakfast"
+           :parking="parking"
+           :stars="stars"/>
 </template>

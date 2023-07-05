@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     try {
         const hotels = await Hotel.find({
-            // "location.city": `${form.city}`,
+            "location.city": `${form.city}`,
             "rooms": {"$elemMatch": {"available": true, "maxGuests": {"$gte": `${form.guests}`}}}
         });
         for (let i = 0; i < hotels.length; i++) {
