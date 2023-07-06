@@ -17,7 +17,7 @@ defineProps({
     required: true
   },
   minReviewsScore: {
-    type: String,
+    type: Number,
     required: true
   }
 });
@@ -29,16 +29,93 @@ defineProps({
       <div v-if="(breakfast ? room.breakfast === true : true)
         && (parking ? hotel.metadata.parking === true : true)
         && (stars <= hotel.stars)
-        && (minReviewsScore <= hotel.reviewsScore)">
-        <h3>{{ hotel.name }}</h3>
-        <h4>{{ room.price }} PLN</h4>
-        <p>City: {{ hotel.location.city }}</p>
-        <p>Stars: {{ hotel.stars }}</p>
-        <p>Reviews score: {{ hotel.reviewsScore }}</p>
-        <p>Parking: {{ hotel.metadata.parking }}</p>
-        <p>Promoted: {{ hotel.promoted }}</p>
-        <p>Breakfast: {{ room.breakfast }}</p>
+        && (minReviewsScore <= hotel.reviewsScore)"
+           class="hotelCard">
+        <div class="hotelName">
+          <p>{{ hotel.name }}</p>
+        </div>
+        <div class="hotelDetails">
+          <section>
+            <p>City</p>
+            <strong>{{ hotel.location.city }}</strong>
+          </section>
+          <section>
+            <p>Stars</p>
+            <strong>{{ hotel.stars }}</strong>
+          </section>
+          <section>
+            <p>Reviews score</p>
+            <strong>{{ hotel.reviewsScore }}</strong>
+          </section>
+          <section class="metadataSection">
+            <strong>{{ room.parking ? "Parking available" : "No parking available" }}</strong>
+            <strong>{{ room.parking ? "Breakfast available" : "No breakfast available" }}</strong>
+          </section>
+        </div>
+        <div class="hotelPrice">
+          <p>{{ room.price }} ARS</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+}
+
+section {
+  width: 20%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+p, strong {
+  padding: 0;
+  margin: 0 auto 0.5vh auto;
+  font-size: 14px;
+}
+
+.metadataSection {
+  width: 40%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.hotelCard {
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  height: 7.5vh;
+  margin-bottom: 1vh;
+}
+
+.hotelName,
+.hotelName > p {
+  text-align: left;
+  padding-left: 5vh;
+  font-size: 20px;
+  font-weight: bold;
+  width: 150%;
+}
+
+.hotelDetails {
+  flex-direction: row;
+  width: 250%;
+  align-items: center;
+}
+
+.hotelPrice,
+.hotelPrice > p {
+  text-align: right;
+  padding-right: 5vh;
+  font-size: 20px;
+  font-weight: bold;
+}
+</style>

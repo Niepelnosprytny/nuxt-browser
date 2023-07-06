@@ -14,7 +14,7 @@ const {
 const breakfast = ref(false);
 const parking = ref(false);
 const stars = ref("0");
-const minReviewsScore = ref("0");
+const minReviewsScore = ref(0.1);
 const sortBy = ref("reviewsAsc");
 
 watch(sortBy, async (currentValue) => {
@@ -36,10 +36,11 @@ watch(sortBy, async (currentValue) => {
 </script>
 
 <template>
-  <section>
+  <section class="mainSection">
     <nav>
-      <div>
-        <label for="sortBy">Sort by: </label>
+      <h3>Filters and sorting</h3>
+      <div class="inputDiv">
+        <label for="sortBy">Sort by</label>
         <select v-model="sortBy" id="sortBy">
           <option value="priceAsc">Price ascending</option>
           <option value="priceDesc">Price descending</option>
@@ -48,8 +49,8 @@ watch(sortBy, async (currentValue) => {
         </select>
       </div>
 
-      <div>
-        <label for="stars">Stars: </label>
+      <div class="inputDiv">
+        <label for="stars">Stars</label>
         <select v-model="stars" id="stars">
           <option>0</option>
           <option>1</option>
@@ -60,83 +61,121 @@ watch(sortBy, async (currentValue) => {
         </select>
       </div>
 
-      <div>
+      <div class="inputDiv">
         <label for="minReviewsScore">Minimal reviews score</label>
         <input v-model="minReviewsScore"
-               type="text"
+               type="number"
                id="minReviewsScore"
                min="0"
                step="0.1"
                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
       </div>
 
+      <h4>Additional filters</h4>
+
       <div class="checkboxList">
-        <h3>Filters</h3>
-        <div class="checkboxDiv">
+        <section class="checkboxDiv">
           <input v-model="breakfast" type="checkbox" id="breakfast">
           <label for="breakfast" class="checkboxLabel">Breakfast</label>
-        </div>
-        <div class="checkboxDiv">
+        </section>
+        <section class="checkboxDiv">
           <input v-model="parking" type="checkbox" id="parking">
           <label for="parking" class="checkboxLabel">Parking</label>
-        </div>
+        </section>
       </div>
     </nav>
-    <main>
+    <main v-if="true">
       <HotelList v-if="promotedHotels !== []"
                  :hotels="promotedHotels"
                  :breakfast="breakfast"
                  :parking="parking"
                  :stars="stars"
-                 :minReviewsScore="minReviewsScore"/>
+                 :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
       <HotelList v-if="hotels !== []"
                  :hotels="hotels"
                  :breakfast="breakfast"
                  :parking="parking"
                  :stars="stars"
-                 :minReviewsScore="minReviewsScore"/>
+                 :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
     </main>
+    <h3 v-else class="nothing">No rooms match your query</h3>
   </section>
 </template>
 
 <style scoped>
-section {
-  display: flex;
-  flex-direction: row;
-}
-
 main {
-  width: 90%;
+  width: 85%;
 }
 
 nav {
   display: inline-flex;
   flex-direction: column;
   width: 15%;
-  float: left;
   height: 100%;
 }
 
 select,
 #minReviewsScore {
-  width: 20vh;
+  margin: auto;
+  min-width: 80%;
+  max-width: 80%;
   height: 3vh;
+  text-align: center;
+  font-size: 14px;
+  text-indent: 0;
 }
 
 div {
-  margin: 3vh auto;
-  display: inline-flex;
+  margin: 2vh auto;
+}
+
+label {
+  font-size: 16px;
+}
+
+h3 {
+  margin: 0 auto 1vh auto;
+  font-size: 20px;
+}
+
+h4 {
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.inputDiv {
+  width: 100%;
+  display: flex;
   flex-direction: column;
+  height: 7.5vh;
+}
+
+.mainSection {
+  display: flex;
+  flex-direction: row;
+  min-height: 70vh;
 }
 
 .checkboxList {
-  width: 100%;
+  min-width: 100%;
 }
 
 .checkboxDiv {
+  width: 100%;
   flex-direction: row;
-  margin: 0.5vh 20%;
-;
+  margin: 0.5vh 0;
+  text-align: left;;
+}
+
+input[type="checkbox"] {
+  margin: 0 2.5% 0 7.5%;
+  height: 2vh;
+  width: 2vh;
+}
+
+.nothing {
+  margin: auto;
+  padding-right: 15%;
 }
 
 input[type="checkbox"]:hover,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <NuxtLayout name="custom">
-      <NuxtPage />
+      <NuxtPage/>
     </NuxtLayout>
   </div>
 </template>
@@ -10,6 +10,7 @@
 body {
   text-align: center;
 }
+
 a {
   text-decoration: none;
 }

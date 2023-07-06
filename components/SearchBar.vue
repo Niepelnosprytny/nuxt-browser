@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {add} from "date-fns";
-import { useHotelsStore } from '~/store/store';
+import {useHotelsStore} from '~/store/store';
 
 const store = useHotelsStore();
-const { searchHotels } = store;
+const {searchHotels} = store;
 
 const date = ref();
 let minDate: Date | String;
 
-if(new Date().getHours() > 15) {
+if (new Date().getHours() > 15) {
   minDate = add(new Date(), {
     days: 1,
   });
@@ -28,11 +28,11 @@ const Search = async (event: any) => {
   await searchHotels(form);
 }
 
-const { data: cities } = await useFetch('/api/cities');
+const {data: cities} = await useFetch('/api/cities');
 </script>
 
 <template>
-  <form @submit.prevent="Search">
+  <form @submit.prevent="Search" autocomplete="off">
     <input type="search"
            name="city"
            class="searchInput"
@@ -42,22 +42,25 @@ const { data: cities } = await useFetch('/api/cities');
     <datalist id="cities">
       <option v-for="city in cities" :value="city"></option>
     </datalist>
-    <VueDatePicker v-model="date"
-                   name="date"
-                   range
-                   multi-calendars
-                   vertical
-                   text-input
-                   auto-apply
-                   prevent-min-max-navigation
-                   input-class-name="dateInput"
-                   placeholder="Select date"
-                   :min-date="minDate"
-                   format="dd MMMM yyyy (EEEE)"
-                   :enable-time-picker="false"
-                   :partial-range="false"
-                   min-range="1"
-                   required />
+    <section>
+      <VueDatePicker v-model="date"
+                     name="date"
+                     range
+                     multi-calendars
+                     vertical
+                     text-input
+                     auto-apply
+                     hide-input-icon
+                     prevent-min-max-navigation
+                     input-class-name="dateInput"
+                     placeholder="Select date"
+                     :min-date="minDate"
+                     format="dd MMMM yyyy (EEEE)"
+                     :enable-time-picker="false"
+                     :partial-range="false"
+                     min-range="1"
+                     required/>
+    </section>
     <input type="number"
            name="guests"
            class="guestsInput"
@@ -65,39 +68,60 @@ const { data: cities } = await useFetch('/api/cities');
            step="1"
            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
            placeholder="Number of guests"
-           required />
+           required/>
     <button>Submit</button>
   </form>
 </template>
 
+<style>
+select,
+input,
+.dateInput,
+button {
+  background-color: #F4F4F4;
+  text-indent: 2vh;
+  border: 1px solid black;
+  font-size: 14px;
+  height: 5vh;
+}
+
+select:focus,
+input:focus,
+.dateInput:focus {
+  border: 1.5px solid black;
+}
+
+select:hover,
+input:hover,
+.dateInput:hover,
+button:hover {
+  border: 1px solid #666666;
+}
+</style>
+
 <style scoped>
+section {
+  width: 30%;
+}
+
 form {
-  margin: 0 10% 5% 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  margin-bottom: 5vh;
 }
 
 button {
   width: 10%;
-  height: 5vh;
-  float: left;
+  text-indent: 0;
 }
 
 .searchInput {
   width: 30%;
-  height: 5vh;
-  float: left;
 }
 
 .guestsInput {
   width: 10%;
-  height: 5vh;
-  float: left;
-}
-</style>
-
-<style>
-.dateInput {
-  width: 30%;
-  height: 5vh;
-  float: left;
 }
 </style>
