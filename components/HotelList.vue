@@ -47,10 +47,8 @@ defineProps({
             <p>Reviews score</p>
             <strong>{{ hotel.reviewsScore }}</strong>
           </section>
-          <section class="metadataSection">
             <strong>{{ room.parking ? "Parking available" : "No parking available" }}</strong>
             <strong>{{ room.parking ? "Breakfast available" : "No breakfast available" }}</strong>
-          </section>
         </div>
         <div class="hotelPrice">
           <p>{{ room.price }} ARS</p>
@@ -79,13 +77,6 @@ p, strong {
   padding: 0;
   margin: 0 auto 0.5vh auto;
   font-size: 14px;
-}
-
-.metadataSection {
-  width: 40%;
-  height: 100%;
-  flex-direction: row;
-  justify-content: flex-start;
 }
 
 .hotelCard {
