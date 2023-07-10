@@ -21,8 +21,6 @@ defineProps({
     required: true
   }
 });
-
-const hotelName = ref("Najdłuższa nazwa hotelu, jaką mogę wymyślić");
 </script>
 
 <template>
@@ -41,24 +39,29 @@ const hotelName = ref("Najdłuższa nazwa hotelu, jaką mogę wymyślić");
           <section>
             <p>City</p>
 <!--            <strong>{{ hotel.location.city }}</strong>-->
-            <strong v-if="hotel.location.city.length <= 18">{{ hotel.location.city }}</strong>
+            <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
             <p v-else :title="hotel.location.city"><strong>{{ hotel.location.city.slice(0, 15).trim() }}...</strong></p>
           </section>
           <section>
             <p>Stars</p>
-            <strong>{{ hotel.stars }}</strong>
+            <p><strong>{{ hotel.stars }}</strong></p>
           </section>
           <section>
             <p>Reviews score</p>
-            <strong>{{ hotel.reviewsScore }}</strong>
+            <p>
+              <strong>{{ hotel.reviewsScore }}</strong>
+              <Icon name="material-symbols:reviews" color="yellow" size="20px" />
+            </p>
           </section>
           <section>
             <p>Parking</p>
-            <strong>{{ hotel.metadata.parking ? "Available" : "Unavailable" }}</strong>
+            <p v-if="hotel.metadata.parking"><Icon name="material-symbols:done" color="green" size="20px" /></p>
+            <p v-else><Icon name="material-symbols:close" color="red" size="20px" /></p>
           </section>
           <section>
             <p>Breakfast</p>
-            <strong>{{ room.breakfast ? "Available" : "Unavailable" }}</strong>
+            <p v-if="room.breakfast"><Icon name="material-symbols:done" color="green" size="20px" /></p>
+            <p v-else><Icon name="material-symbols:close" color="red" size="20px" /></p>
           </section>
         </div>
         <div class="hotelPrice">
@@ -84,7 +87,7 @@ section {
   align-items: center;
 }
 
-p, strong {
+p {
   padding: 0;
   margin: 0 auto 0.5vh auto;
   font-size: 14px;
