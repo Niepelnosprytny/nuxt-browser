@@ -21,6 +21,8 @@ defineProps({
     required: true
   }
 });
+
+const hotelName = ref("Najdłuższa nazwa hotelu, jaką mogę wymyślić");
 </script>
 
 <template>
@@ -32,12 +34,15 @@ defineProps({
         && (minReviewsScore <= hotel.reviewsScore)"
            class="hotelCard">
         <div class="hotelName">
-          <p>{{ hotel.name }}</p>
+          <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
+          <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
         </div>
         <div class="hotelDetails">
           <section>
             <p>City</p>
-            <strong>{{ hotel.location.city }}</strong>
+<!--            <strong>{{ hotel.location.city }}</strong>-->
+            <strong v-if="hotel.location.city.length <= 18">{{ hotel.location.city }}</strong>
+            <p v-else :title="hotel.location.city"><strong>{{ hotel.location.city.slice(0, 15).trim() }}...</strong></p>
           </section>
           <section>
             <p>Stars</p>
