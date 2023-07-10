@@ -47,8 +47,14 @@ defineProps({
             <p>Reviews score</p>
             <strong>{{ hotel.reviewsScore }}</strong>
           </section>
-            <strong>{{ room.parking ? "Parking available" : "No parking available" }}</strong>
-            <strong>{{ room.parking ? "Breakfast available" : "No breakfast available" }}</strong>
+          <section>
+            <p>Parking</p>
+            <strong>{{ hotel.metadata.parking ? "Available" : "Unavailable" }}</strong>
+          </section>
+          <section>
+            <p>Breakfast</p>
+            <strong>{{ room.breakfast ? "Available" : "Unavailable" }}</strong>
+          </section>
         </div>
         <div class="hotelPrice">
           <p>{{ room.price }} ARS</p>
