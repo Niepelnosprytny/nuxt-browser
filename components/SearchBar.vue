@@ -69,7 +69,7 @@ const {data: cities} = await useFetch('/api/cities');
            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
            placeholder="Number of guests"
            required/>
-    <button>Submit</button>
+    <button>Search</button>
   </form>
 </template>
 
@@ -78,11 +78,16 @@ select,
 input,
 .dateInput,
 button {
-  background-color: #F4F4F4;
   text-indent: 2vh;
   border: 1px solid black;
   font-size: 14px;
   height: 5vh;
+}
+
+select,
+input,
+.dateInput {
+  background-color: #F4F4F4;
 }
 
 select:focus,
@@ -105,11 +110,13 @@ section {
 }
 
 form {
+  background-color: #AAA000;
+  color: #F4F4F4;
+  padding-bottom: 5vh;
   width: 100%;
   display: flex;
   flex-direction: row;
   place-content: center;
-  margin-bottom: 5vh;
 }
 
 button {

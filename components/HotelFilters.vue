@@ -115,10 +115,13 @@ main {
 }
 
 nav {
+  background-color: #FFF666;
+  margin: 0;
+  padding: 3vh 0;
   display: inline-flex;
   flex-direction: column;
   width: 15%;
-  height: 100%;
+  min-height: 100%;
 }
 
 select,

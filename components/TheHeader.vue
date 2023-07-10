@@ -8,6 +8,8 @@
 
 <style scoped>
 nav {
+  background-color: #AAA000;
+  color: #F4F4F4;
   width: 100%;
   height: 7.5vh;
   margin: 0;

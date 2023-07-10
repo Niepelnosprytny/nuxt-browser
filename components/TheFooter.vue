@@ -6,6 +6,8 @@
 
 <style scoped>
 footer {
+  background-color: #AAA000;
+  color: #F4F4F4;
   float: left;
   width: 100%;
   height: 7.5vh;
