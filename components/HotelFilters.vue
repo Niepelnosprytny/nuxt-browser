@@ -13,9 +13,10 @@ const {
 
 const breakfast = ref(false);
 const parking = ref(false);
-const stars = ref("0");
+const stars = ref(0);
 const minReviewsScore = ref(0.1);
 const sortBy = ref("reviewsAsc");
+let renderStars = ref(true);
 
 watch(sortBy, async (currentValue) => {
   switch (currentValue) {
@@ -33,6 +34,11 @@ watch(sortBy, async (currentValue) => {
       break;
   }
 });
+
+async function clearStars() {
+  stars.value = 0;
+  renderStars.value = false;
+}
 </script>
 
 <template>
@@ -50,15 +56,15 @@ watch(sortBy, async (currentValue) => {
       </div>
 
       <div class="inputDiv">
+        <section class="stars">
         <label for="stars">Stars</label>
-        <select v-model="stars" id="stars">
-          <option>0</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
+          <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
+                      :rating-value="stars"
+                      :read-only="false"
+                      active-color="#FF0000"
+                      id="stars" />
+          <button @click="clearStars().then(() => { renderStars = true })" class="clearStars">Clear stars</button>
+        </section>
       </div>
 
       <div class="inputDiv">
@@ -102,6 +108,7 @@ watch(sortBy, async (currentValue) => {
   </section>
 </template>
 
+
 <style scoped>
 main {
   width: 85%;
@@ -115,7 +122,8 @@ nav {
 }
 
 select,
-#minReviewsScore {
+#minReviewsScore,
+.clearStars {
   margin: auto;
   min-width: 80%;
   max-width: 80%;
@@ -131,6 +139,7 @@ div {
 
 label {
   font-size: 16px;
+  margin-bottom: 2vh;
 }
 
 h3 {
@@ -145,9 +154,9 @@ h4 {
 
 .inputDiv {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 7.5vh;
 }
 
 .mainSection {
@@ -171,6 +180,14 @@ input[type="checkbox"] {
   margin: 0 2.5% 0 7.5%;
   height: 2vh;
   width: 2vh;
+}
+
+.stars {
+  margin: 0;
+}
+
+#stars {
+  width: 60%;
 }
 
 .nothing {

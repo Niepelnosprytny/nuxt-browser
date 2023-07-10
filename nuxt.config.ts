@@ -9,7 +9,8 @@ export default defineNuxtConfig({
 
     modules: [
         '@pinia/nuxt',
-        'nuxt-icon'
+        'nuxt-icon',
+        'nuxt-rating'
     ],
 
     pinia: {

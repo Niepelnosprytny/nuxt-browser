@@ -13,7 +13,7 @@ defineProps({
     required: true
   },
   stars: {
-    type: String,
+    type: Number,
     required: true
   },
   minReviewsScore: {
@@ -44,7 +44,7 @@ defineProps({
           </section>
           <section>
             <p>Stars</p>
-            <p><strong>{{ hotel.stars }}</strong></p>
+            <p><NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#FF0000" /></p>
           </section>
           <section>
             <p>Reviews score</p>
