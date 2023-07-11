@@ -7,29 +7,15 @@ export default defineNuxtConfig({
         transpile: ['@vuepic/vue-datepicker']
     },
 
-    css: ['@/assets/scss/custom.scss'],
+    css: ['@/assets/styles/main.scss'],
 
-    plugins: ['~/plugins/bootstrap.js'],
+    plugins: ['~/plugins/bootstrap.client.ts'],
 
     modules: [
         '@pinia/nuxt',
         'nuxt-icon',
-        'nuxt-rating',
-        'bootstrap-vue/nuxt'
+        'nuxt-rating'
     ],
-
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-        ],
-    },
-
-    bootstrapVue: {
-        bootstrapCSS: false,
-    },
 
     pinia: {
         autoImports: [
