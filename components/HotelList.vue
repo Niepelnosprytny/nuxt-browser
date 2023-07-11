@@ -100,8 +100,8 @@ p {
   display: flex;
   flex-direction: row;
   place-content: center;
+  border: 1px solid black;
   height: 7.5vh;
-  margin-bottom: 1vh;
   width: 100%;
 }
 
