@@ -1,6 +1,6 @@
 <template>
   <NuxtLink to="/">
-    <nav>
+    <nav class="container-fluid pt-5 pb-2">
       <h1>seBooking.com</h1>
     </nav>
   </NuxtLink>
@@ -10,14 +10,6 @@
 nav {
   background-color: #AAA000;
   color: #F4F4F4;
-  width: 100%;
-  height: 7.5vh;
-  margin: 0;
-  padding: 2vh 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
 }
 
 h1 {

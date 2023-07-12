@@ -32,103 +32,69 @@ const {data: cities} = await useFetch('/api/cities');
 </script>
 
 <template>
-  <form @submit.prevent="Search" autocomplete="off">
-    <input type="search"
-           name="city"
-           class="searchInput"
-           list="cities"
-           placeholder="Select or type city"
-           required>
-    <datalist id="cities">
-      <option v-for="city in cities" :value="city"></option>
-    </datalist>
-    <section>
-      <VueDatePicker v-model="date"
-                     name="date"
-                     range
-                     multi-calendars
-                     vertical
-                     text-input
-                     auto-apply
-                     hide-input-icon
-                     prevent-min-max-navigation
-                     input-class-name="dateInput"
-                     placeholder="Select date"
-                     :min-date="minDate"
-                     format="dd MMMM yyyy (EEEE)"
-                     :enable-time-picker="false"
-                     :partial-range="false"
-                     min-range="1"
-                     required/>
-    </section>
-    <input type="number"
-           name="guests"
-           class="guestsInput"
-           min="1"
-           step="1"
-           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-           placeholder="Number of guests"
-           required/>
-    <button>Search</button>
+  <form @submit.prevent="Search"
+        autocomplete="off"
+        class="container-fluid d-flex justify-content-center pt-5 pb-5">
+      <input type="search"
+             name="city"
+             class="col-3"
+             list="cities"
+             placeholder="Select or type city"
+             required>
+      <datalist id="cities">
+        <option v-for="city in cities" :value="city"></option>
+      </datalist>
+      <section class="p-0 col-3">
+        <VueDatePicker v-model="date"
+                       name="date"
+                       range
+                       multi-calendars
+                       vertical
+                       text-input
+                       auto-apply
+                       hide-input-icon
+                       prevent-min-max-navigation
+                       input-class-name="dateInput"
+                       placeholder="Select date"
+                       :min-date="minDate"
+                       format="dd MMMM yyyy (EEEE)"
+                       :enable-time-picker="false"
+                       :partial-range="false"
+                       min-range="1"
+                       required/>
+      </section>
+      <input type="number"
+             name="guests"
+             class="col-1"
+             min="1"
+             step="1"
+             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+             placeholder="Guests number"
+             required/>
+      <button class="col-1">Search</button>
   </form>
 </template>
 
 <style>
-select,
-input,
-.dateInput,
-button {
-  text-indent: 2vh;
-  border: 1px solid black;
-  font-size: 14px;
-  height: 5vh;
-}
-
-select,
-input,
 .dateInput {
   background-color: #F4F4F4;
+  border: 0.1rem solid black;
+  font-size: 1rem;
+  text-indent: 1rem;
 }
 
-select:focus,
-input:focus,
 .dateInput:focus {
-  border: 1.5px solid black;
+  border: 0.15rem solid black;
 }
 
-select:hover,
-input:hover,
-.dateInput:hover,
-button:hover {
-  border: 1px solid #666666;
+.dateInput:hover {
+  border: 0.15rem solid #666666;
 }
 </style>
 
 <style scoped>
-section {
-  width: 30%;
-}
-
 form {
   background-color: #AAA000;
   color: #F4F4F4;
-  padding-bottom: 5vh;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  place-content: center;
-}
-
-button {
-  width: 10%;
-  text-indent: 0;
-}
-
-.searchInput {
-  width: 30%;
-}
-
-.guestsInput {
-  width: 10%;
 }
 </style>
