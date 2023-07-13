@@ -32,17 +32,19 @@ const {data: cities} = await useFetch('/api/cities');
 </script>
 
 <template>
-  <form @submit.prevent="Search" autocomplete="off">
-    <input type="search"
-           name="city"
-           class="searchInput"
-           list="cities"
-           placeholder="Select or type city"
-           required>
-    <datalist id="cities">
-      <option v-for="city in cities" :value="city"></option>
-    </datalist>
-    <section>
+  <div id="searchBarDiv">
+    <form @submit.prevent="Search"
+          autocomplete="off"
+          id="searchBarForm">
+      <input type="search"
+             name="city"
+             class="searchInput"
+             list="cities"
+             placeholder="Select or type city"
+             required>
+      <datalist id="cities">
+        <option v-for="city in cities" :value="city"></option>
+      </datalist>
       <VueDatePicker v-model="date"
                      name="date"
                      range
@@ -60,20 +62,74 @@ const {data: cities} = await useFetch('/api/cities');
                      :partial-range="false"
                      min-range="1"
                      required/>
-    </section>
-    <input type="number"
-           name="guests"
-           class="guestsInput"
-           min="1"
-           step="1"
-           oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-           placeholder="Number of guests"
-           required/>
-    <button>Search</button>
-  </form>
+      <input type="number"
+             name="guests"
+             class="guestsInput"
+             min="1"
+             step="1"
+             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+             placeholder="Number of guests"
+             required/>
+      <button>Search</button>
+    </form>
+  </div>
 </template>
 
 <style>
+#searchBarDiv {
+  background-color: #AAA000;
+  color: #F4F4F4;
+  padding-bottom: 5vh;
+  width: 100%;
+  place-content: center;
+}
+
+#searchBarForm {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.dateInput {
+  background-color: red;
+  padding: 0;
+  margin: 0;
+  width: 30%;
+}
+
+button {
+  width: 10%;
+  text-indent: 0;
+}
+
+.searchInput {
+  background-color: black;
+  width: 30%;
+  margin: 0;
+  padding: 0;
+}
+
+.guestsInput {
+  background-color: blue;
+  width: 10%;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  #searchBarForm {
+    flex-direction: column;
+  }
+
+  .guestsInput,
+  .dateInput,
+  .searchInput,
+  button {
+    width: 90%;
+  }
+}
+
+
 select,
 input,
 .dateInput,
@@ -87,7 +143,7 @@ button {
 select,
 input,
 .dateInput {
-  background-color: #F4F4F4;
+//background-color: #F4F4F4;
 }
 
 select:focus,
@@ -101,34 +157,5 @@ input:hover,
 .dateInput:hover,
 button:hover {
   border: 1px solid #666666;
-}
-</style>
-
-<style scoped>
-section {
-  width: 30%;
-}
-
-form {
-  background-color: #AAA000;
-  color: #F4F4F4;
-  padding-bottom: 5vh;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  place-content: center;
-}
-
-button {
-  width: 10%;
-  text-indent: 0;
-}
-
-.searchInput {
-  width: 30%;
-}
-
-.guestsInput {
-  width: 10%;
 }
 </style>
