@@ -35,7 +35,7 @@ async function submitFile(event: { currentTarget: HTMLFormElement | undefined; }
            accept="application/json"
            required>
     <br><br>
-    <button>Update</button>
+    <button>Send</button>
   </form>
   <h3 v-else>Processing...</h3>
 </template>
