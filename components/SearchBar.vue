@@ -45,23 +45,25 @@ const {data: cities} = await useFetch('/api/cities');
       <datalist id="cities">
         <option v-for="city in cities" :value="city"></option>
       </datalist>
-      <VueDatePicker v-model="date"
-                     name="date"
-                     range
-                     multi-calendars
-                     vertical
-                     text-input
-                     auto-apply
-                     hide-input-icon
-                     prevent-min-max-navigation
-                     input-class-name="dateInput"
-                     placeholder="Select date"
-                     :min-date="minDate"
-                     format="dd MMMM yyyy (EEEE)"
-                     :enable-time-picker="false"
-                     :partial-range="false"
-                     min-range="1"
-                     required/>
+      <div id="dateInputDiv">
+        <VueDatePicker v-model="date"
+                       name="date"
+                       range
+                       multi-calendars
+                       vertical
+                       text-input
+                       auto-apply
+                       hide-input-icon
+                       prevent-min-max-navigation
+                       input-class-name="dateInput"
+                       placeholder="Select date"
+                       :min-date="minDate"
+                       format="dd MMMM yyyy (EEEE)"
+                       :enable-time-picker="false"
+                       :partial-range="false"
+                       min-range="1"
+                       required/>
+      </div>
       <input type="number"
              name="guests"
              class="guestsInput"
@@ -79,71 +81,46 @@ const {data: cities} = await useFetch('/api/cities');
 #searchBarDiv {
   background-color: #AAA000;
   color: #F4F4F4;
-  padding-bottom: 5vh;
+  padding-bottom: 3rem;
   width: 100%;
-  place-content: center;
 }
 
 #searchBarForm {
-  margin: auto;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.dateInput {
-  background-color: red;
-  padding: 0;
-  margin: 0;
+#dateInputDiv {
   width: 30%;
 }
 
 button {
   width: 10%;
-  text-indent: 0;
 }
 
 .searchInput {
-  background-color: black;
   width: 30%;
-  margin: 0;
-  padding: 0;
 }
 
 .guestsInput {
-  background-color: blue;
-  width: 10%;
-  margin: 0;
-  padding: 0;
+  width: 20%;
 }
-
-@media (max-width: 768px) {
-  #searchBarForm {
-    flex-direction: column;
-  }
-
-  .guestsInput,
-  .dateInput,
-  .searchInput,
-  button {
-    width: 90%;
-  }
-}
-
 
 select,
 input,
 .dateInput,
 button {
-  text-indent: 2vh;
   border: 1px solid black;
-  font-size: 14px;
-  height: 5vh;
+  font-size: 1.25rem;
+  height: 3rem;
 }
 
 select,
 input,
 .dateInput {
-//background-color: #F4F4F4;
+  background-color: #F4F4F4;
 }
 
 select:focus,
@@ -157,5 +134,18 @@ input:hover,
 .dateInput:hover,
 button:hover {
   border: 1px solid #666666;
+}
+
+@media (max-width: 1024px) {
+  #searchBarForm {
+    flex-direction: column;
+  }
+
+  .guestsInput,
+  #dateInputDiv,
+  .searchInput,
+  button {
+    width: 90%;
+  }
 }
 </style>

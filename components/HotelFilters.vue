@@ -44,68 +44,68 @@ async function clearStars() {
 <template>
   <section class="mainSection">
     <nav>
-        <h3>Filters and sorting</h3>
-        <div class="inputDiv">
-          <label for="sortBy">Sort by</label>
-          <select v-model="sortBy" id="sortBy">
-            <option value="priceAsc">Price ascending</option>
-            <option value="priceDesc">Price descending</option>
-            <option value="reviewsAsc" selected>Reviews ascending</option>
-            <option value="reviewsDesc">Reviews descending</option>
-          </select>
-        </div>
+      <h3>Filters and sorting</h3>
+      <div class="inputDiv">
+        <label for="sortBy">Sort by</label>
+        <select v-model="sortBy" id="sortBy">
+          <option value="priceAsc">Price ascending</option>
+          <option value="priceDesc">Price descending</option>
+          <option value="reviewsAsc" selected>Reviews ascending</option>
+          <option value="reviewsDesc">Reviews descending</option>
+        </select>
+      </div>
 
-        <div class="inputDiv">
-          <section class="stars">
-            <label for="stars">Stars</label>
-            <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
-                        :rating-value="stars"
-                        :read-only="false"
-                        active-color="#FF0000"
-                        id="stars"/>
-            <button @click="clearStars().then(() => { renderStars = true })" class="clearStars">Clear stars</button>
-          </section>
-        </div>
+      <div class="inputDiv">
+        <section class="stars">
+          <label for="stars">Stars</label>
+          <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
+                      :rating-value="stars"
+                      :read-only="false"
+                      active-color="#FF0000"
+                      id="stars"/>
+          <button @click="clearStars().then(() => { renderStars = true })" class="clearStars">Clear stars</button>
+        </section>
+      </div>
 
-        <div class="inputDiv">
-          <label for="minReviewsScore">Minimal reviews score</label>
-          <input v-model="minReviewsScore"
-                 type="number"
-                 id="minReviewsScore"
-                 min="0"
-                 step="0.1"
-                 oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-        </div>
+      <div class="inputDiv">
+        <label for="minReviewsScore">Minimal reviews score</label>
+        <input v-model="minReviewsScore"
+               type="number"
+               id="minReviewsScore"
+               min="0"
+               step="0.1"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+      </div>
 
-        <h4>Additional filters</h4>
+      <h4>Additional filters</h4>
 
-        <div class="checkboxList">
-          <section class="checkboxDiv">
-            <input v-model="breakfast" type="checkbox" id="breakfast">
-            <label for="breakfast" class="checkboxLabel">Breakfast</label>
-          </section>
-          <section class="checkboxDiv">
-            <input v-model="parking" type="checkbox" id="parking">
-            <label for="parking" class="checkboxLabel">Parking</label>
-          </section>
-        </div>
+      <div class="checkboxList">
+        <section class="checkboxDiv">
+          <input v-model="breakfast" type="checkbox" id="breakfast">
+          <label for="breakfast" class="checkboxLabel">Breakfast</label>
+        </section>
+        <section class="checkboxDiv">
+          <input v-model="parking" type="checkbox" id="parking">
+          <label for="parking" class="checkboxLabel">Parking</label>
+        </section>
+      </div>
       <div class="spaceFiller"></div>
     </nav>
-    <main v-if="true">
-      <HotelList v-if="promotedHotels !== []"
+    <main>
+      <HotelList v-if="promotedHotels.length > 0"
                  :hotels="promotedHotels"
                  :breakfast="breakfast"
                  :parking="parking"
                  :stars="stars"
                  :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
-      <HotelList v-if="hotels !== []"
+      <HotelList v-if="hotels.length > 0"
                  :hotels="hotels"
                  :breakfast="breakfast"
                  :parking="parking"
                  :stars="stars"
                  :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
+      <h3 v-if="hotels.length === 0 && promotedHotels.length === 0">No rooms match your query</h3>
     </main>
-    <h3 v-else class="nothing">No rooms match your query</h3>
   </section>
 </template>
 

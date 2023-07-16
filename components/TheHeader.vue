@@ -1,27 +1,24 @@
 <template>
   <NuxtLink to="/">
-    <nav>
+    <div>
       <h1>seBooking.com</h1>
-    </nav>
+    </div>
   </NuxtLink>
 </template>
 
 <style scoped>
-nav {
+div {
   background-color: #AAA000;
   color: #F4F4F4;
   width: 100%;
-  height: 7.5vh;
-  margin: 0;
-  padding: 2vh 0;
+  height: 8rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: center;
 }
 
 h1 {
-  font-size: 4vh;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 </style>
