@@ -10,21 +10,30 @@ export default defineEventHandler(async (event) => {
         ).form
     );
 
+    console.log(form);
+
     try {
-        const hotels = await Hotel.aggregate([
-            {
-                $match: {
-                    "location.city": `${form.city}`
-                }
-            },
-            // "rooms": { "$elemMatch": { "available": true, "maxGuests": { "$gte": `${ form.guests }`} } },
-            // "stars": { "$gte": form.stars },
-            // "reviewsScore": { "$gte": form.minReviewsScore },
-            // { $cond: { if: form.parking === true, then: { "metadata.parking": true } } }
-        ]);
-        // for (let i = 0; i < hotels.length; i++) {
-        //     hotels[i]["rooms"] = hotels[i]["rooms"].filter(room => room.available == true);
-        // }
+        let hotels = await Hotel.find({
+            "location.city": `${form.city}`,
+            "rooms": {$elemMatch: {"available": true, "maxGuests": {$gte: `${form.guests}`}}},
+            "stars": {$gte: form.stars},
+            "reviewsScore": {$gte: form.minReviewsScore}
+        });
+
+        for (let i = 0; i < hotels.length; i++) {
+            hotels[i]["rooms"] = hotels[i]["rooms"].filter(room => room.available == true);
+        }
+
+        if(form.parking) {
+            hotels = hotels.filter(hotel => hotel.metadata?.parking === true);
+        }
+
+        if(form.breakfast) {
+            for (let i = 0; i < hotels.length; i++) {
+                hotels[i]["rooms"] = hotels[i]["rooms"].filter(room => room.breakfast == true);
+            }
+        }
+
         return hotels;
     } catch (e) {
         console.log(e);
