@@ -26,10 +26,7 @@ defineProps({
 <template>
     <div v-if="hotels.length > 0" v-for="hotel in hotels">
       <div v-for="room in hotel.rooms" :key="hotel.id">
-        <div v-if="(breakfast ? room.breakfast === true : true)
-        && (parking ? hotel.metadata.parking === true : true)
-        && (stars <= hotel.stars)
-        && (minReviewsScore <= hotel.reviewsScore)"
+        <div
              class="hotelCard">
           <div class="hotelName">
             <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>

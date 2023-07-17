@@ -6,7 +6,7 @@ import {add} from "date-fns";
 import {useHotelsStore} from '~/store/store';
 
 const store = useHotelsStore();
-const {searchHotels} = store;
+const {setSearchBarValues, searchHotels} = store;
 
 const date = ref();
 let minDate: Date | String;
@@ -20,12 +20,12 @@ if (new Date().getHours() > 15) {
 }
 
 const Search = async (event: any) => {
-  const form = {
+  setSearchBarValues({
     city: event.target.city.value,
     date: date["_rawValue"],
     guests: event.target.guests.value
-  };
-  await searchHotels(form);
+  });
+  await searchHotels();
 }
 
 const {data: cities} = await useFetch('/api/cities');
@@ -38,12 +38,12 @@ const {data: cities} = await useFetch('/api/cities');
           id="searchBarForm">
       <input type="search"
              name="city"
-             class="searchInput"
              list="cities"
+             id="searchInput"
              placeholder="Select or type city"
              required>
       <datalist id="cities">
-        <option v-for="city in cities" :value="city"></option>
+        <option v-for="city in cities" :value="city">{{ city }}</option>
       </datalist>
       <div id="dateInputDiv">
         <VueDatePicker v-model="date"
@@ -58,7 +58,7 @@ const {data: cities} = await useFetch('/api/cities');
                        input-class-name="dateInput"
                        placeholder="Select date"
                        :min-date="minDate"
-                       format="dd MMMM yyyy (EEEE)"
+                       format="dd MMMM yyyy"
                        :enable-time-picker="false"
                        :partial-range="false"
                        min-range="1"
@@ -66,13 +66,13 @@ const {data: cities} = await useFetch('/api/cities');
       </div>
       <input type="number"
              name="guests"
-             class="guestsInput"
+             id="guestsInput"
              min="1"
              step="1"
              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
              placeholder="Number of guests"
              required/>
-      <button>Search</button>
+      <button id="searchButton">Search</button>
     </form>
   </div>
 </template>
@@ -96,44 +96,37 @@ const {data: cities} = await useFetch('/api/cities');
   width: 30%;
 }
 
-button {
+#searchButton {
   width: 10%;
 }
 
-.searchInput {
+#searchInput {
   width: 30%;
 }
 
-.guestsInput {
+#guestsInput {
   width: 20%;
 }
 
-select,
-input,
+#searchInput,
+#guestsInput,
 .dateInput,
-button {
-  border: 1px solid black;
+#searchButton {
+  border: 0.1rem solid black;
   font-size: 1.25rem;
   height: 3rem;
 }
 
-select,
-input,
 .dateInput {
   background-color: #F4F4F4;
 }
 
-select:focus,
-input:focus,
-.dateInput:focus {
-  border: 1.5px solid black;
+.dateInput:hover {
+  border: 0.1rem solid #666666;
 }
 
-select:hover,
-input:hover,
-.dateInput:hover,
-button:hover {
-  border: 1px solid #666666;
+.dateInput:focus {
+  border: 0.15rem solid black;
 }
 
 @media (max-width: 1024px) {
@@ -141,10 +134,10 @@ button:hover {
     flex-direction: column;
   }
 
-  .guestsInput,
+  #guestsInput,
   #dateInputDiv,
-  .searchInput,
-  button {
+  #searchInput,
+  #searchButton {
     width: 90%;
   }
 }

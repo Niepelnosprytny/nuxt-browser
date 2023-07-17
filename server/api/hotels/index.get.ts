@@ -11,13 +11,20 @@ export default defineEventHandler(async (event) => {
     );
 
     try {
-        const hotels = await Hotel.find({
-            "location.city": `${form.city}`,
-            "rooms": {"$elemMatch": {"available": true, "maxGuests": {"$gte": `${form.guests}`}}}
-        });
-        for (let i = 0; i < hotels.length; i++) {
-            hotels[i]["rooms"] = hotels[i]["rooms"].filter(room => room.available == true);
-        }
+        const hotels = await Hotel.aggregate([
+            {
+                $match: {
+                    "location.city": `${form.city}`
+                }
+            },
+            // "rooms": { "$elemMatch": { "available": true, "maxGuests": { "$gte": `${ form.guests }`} } },
+            // "stars": { "$gte": form.stars },
+            // "reviewsScore": { "$gte": form.minReviewsScore },
+            // { $cond: { if: form.parking === true, then: { "metadata.parking": true } } }
+        ]);
+        // for (let i = 0; i < hotels.length; i++) {
+        //     hotels[i]["rooms"] = hotels[i]["rooms"].filter(room => room.available == true);
+        // }
         return hotels;
     } catch (e) {
         console.log(e);

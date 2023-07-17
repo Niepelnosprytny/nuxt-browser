@@ -5,6 +5,8 @@ import {storeToRefs} from "pinia";
 const store = useHotelsStore();
 const {hotels, promotedHotels} = storeToRefs(store);
 const {
+  searchHotels,
+  setFilterValues,
   sortByPriceAsc,
   sortByPriceDesc,
   sortByReviewsAsc,
@@ -14,11 +16,25 @@ const {
 const breakfast = ref(false);
 const parking = ref(false);
 const stars = ref(0);
-const minReviewsScore = ref(0.1);
+let minReviewsScore = ref(0);
 const sortBy = ref("reviewsAsc");
 let renderStars = ref(true);
 
-watch(sortBy, async (currentValue) => {
+function applyFilters() {
+  if(!minReviewsScore.value) {
+    minReviewsScore.value = 0;
+  }
+
+  setFilterValues({
+    breakfast: breakfast,
+    parking: parking,
+    stars: stars,
+    minReviewsScore: minReviewsScore
+  });
+  searchHotels();
+}
+
+watch(sortBy, (currentValue) => {
   switch (currentValue) {
     case "priceAsc":
       sortByPriceAsc();
@@ -44,16 +60,17 @@ async function clearStars() {
 <template>
   <section class="mainSection">
     <nav>
-      <h3>Filters and sorting</h3>
+      <h3>Sort by</h3>
       <div class="inputDiv">
-        <label for="sortBy">Sort by</label>
-        <select v-model="sortBy" id="sortBy">
+        <select v-model="sortBy">
           <option value="priceAsc">Price ascending</option>
           <option value="priceDesc">Price descending</option>
           <option value="reviewsAsc" selected>Reviews ascending</option>
           <option value="reviewsDesc">Reviews descending</option>
         </select>
       </div>
+
+      <h3>Filters</h3>
 
       <div class="inputDiv">
         <section class="stars">
@@ -72,9 +89,12 @@ async function clearStars() {
         <input v-model="minReviewsScore"
                type="number"
                id="minReviewsScore"
+               placeholder="Type value between 0 and 10"
                min="0"
+               max="10"
                step="0.1"
-               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+        >
       </div>
 
       <h4>Additional filters</h4>
@@ -89,6 +109,7 @@ async function clearStars() {
           <label for="parking" class="checkboxLabel">Parking</label>
         </section>
       </div>
+      <button @click="applyFilters">Apply filters</button>
       <div class="spaceFiller"></div>
     </nav>
     <main>
@@ -132,7 +153,7 @@ nav {
 
 select,
 #minReviewsScore,
-.clearStars {
+button {
   margin: auto;
   min-width: 80%;
   max-width: 80%;
@@ -197,11 +218,6 @@ input[type="checkbox"] {
 
 #stars {
   width: 60%;
-}
-
-.nothing {
-  margin: auto;
-  padding-right: 15%;
 }
 
 input[type="checkbox"]:hover,
