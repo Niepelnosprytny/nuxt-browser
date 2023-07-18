@@ -6,14 +6,17 @@
 
 <style scoped>
 footer {
-  background-color: #AAA000;
+  background-color: #060606;
   color: #F4F4F4;
-  float: left;
   width: 100%;
-  height: 7.5vh;
+  height: 5rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+}
+
+p {
+  font-size: 1.25rem;
 }
 </style>

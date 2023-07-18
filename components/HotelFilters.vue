@@ -113,18 +113,8 @@ async function clearStars() {
       <div class="spaceFiller"></div>
     </nav>
     <main>
-      <HotelList v-if="promotedHotels.length > 0"
-                 :hotels="promotedHotels"
-                 :breakfast="breakfast"
-                 :parking="parking"
-                 :stars="stars"
-                 :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
-      <HotelList v-if="hotels.length > 0"
-                 :hotels="hotels"
-                 :breakfast="breakfast"
-                 :parking="parking"
-                 :stars="stars"
-                 :minReviewsScore="minReviewsScore !== '' ? minReviewsScore : 0"/>
+      <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels" />
+      <HotelList v-if="hotels.length > 0" :hotels="hotels" />
       <h3 v-if="hotels.length === 0 && promotedHotels.length === 0">No rooms match your query</h3>
     </main>
   </section>

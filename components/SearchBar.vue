@@ -58,20 +58,19 @@ const {data: cities} = await useFetch('/api/cities');
                        input-class-name="dateInput"
                        placeholder="Select date"
                        :min-date="minDate"
-                       format="dd MMMM yyyy"
+                       format="dd MMM yyyy"
                        :enable-time-picker="false"
                        :partial-range="false"
                        min-range="1"
                        required/>
       </div>
-      <input type="number"
-             name="guests"
-             id="guestsInput"
-             min="1"
-             step="1"
-             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-             placeholder="Number of guests"
-             required/>
+        <input type="number"
+               name="guests"
+               id="guestsInput"
+               min="1"
+               step="1"
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+               placeholder="<1> guest(s)" />
       <button id="searchButton">Search</button>
     </form>
   </div>
@@ -79,7 +78,7 @@ const {data: cities} = await useFetch('/api/cities');
 
 <style>
 #searchBarDiv {
-  background-color: #AAA000;
+  background-color: #060606;
   color: #F4F4F4;
   padding-bottom: 3rem;
   width: 100%;
@@ -93,19 +92,19 @@ const {data: cities} = await useFetch('/api/cities');
 }
 
 #dateInputDiv {
-  width: 30%;
+  width: 20rem;
 }
 
 #searchButton {
-  width: 10%;
+  width: 10rem;
 }
 
 #searchInput {
-  width: 30%;
+  width: 20rem;
 }
 
 #guestsInput {
-  width: 20%;
+  width: 10rem;
 }
 
 #searchInput,
@@ -138,7 +137,7 @@ const {data: cities} = await useFetch('/api/cities');
   #dateInputDiv,
   #searchInput,
   #searchButton {
-    width: 90%;
+    width: 20rem;
   }
 }
 </style>

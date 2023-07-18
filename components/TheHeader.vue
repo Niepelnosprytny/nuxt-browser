@@ -8,7 +8,7 @@
 
 <style scoped>
 div {
-  background-color: #AAA000;
+  background-color: #060606;
   color: #F4F4F4;
   width: 100%;
   height: 8rem;

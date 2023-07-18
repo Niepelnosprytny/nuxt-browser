@@ -27,33 +27,23 @@ a {
 }
 
 button {
-  background-color: #FFF000;
+  background-color: #F60000;
+  color: #F4F4F4;
 }
 
 button:hover {
-  background-color: #DDD000;
+  background-color: #FF4444;
   cursor: pointer;
 }
 
 select,
 input,
 button {
-  border: 0.1rem solid black;
+  border: 0;
 }
 
 select,
 input {
   background-color: #F4F4F4;
-}
-
-select:hover,
-input:hover,
-button:hover {
-  border: 0.1rem solid #666666;
-}
-
-select:focus,
-input:focus {
-  border: 0.15rem solid black;
 }
 </style>

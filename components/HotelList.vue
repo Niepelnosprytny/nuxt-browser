@@ -3,24 +3,7 @@ defineProps({
   hotels: {
     type: Array,
     required: true
-  },
-  breakfast: {
-    type: Boolean,
-    required: true
-  },
-  parking: {
-    type: Boolean,
-    required: true
-  },
-  stars: {
-    type: Number,
-    required: true
-  },
-  minReviewsScore: {
-    type: Number,
-    required: true
-  }
-});
+  }});
 </script>
 
 <template>
@@ -35,7 +18,6 @@ defineProps({
           <div class="hotelDetails">
             <section>
               <p>City</p>
-              <!--            <strong>{{ hotel.location.city }}</strong>-->
               <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
               <p v-else :title="hotel.location.city"><strong>{{ hotel.location.city.slice(0, 15).trim() }}...</strong></p>
             </section>
