@@ -6,12 +6,15 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 * {
   text-align: center;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -27,12 +30,13 @@ a {
 }
 
 button {
-  background-color: #F60000;
+  background-color: #F00000;
   color: #F4F4F4;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #FF4444;
+  background-color: #FF3333;
   cursor: pointer;
 }
 

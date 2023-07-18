@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import {useHotelsStore} from '~/store/store';
-import {storeToRefs} from "pinia";
 
 const store = useHotelsStore();
-const {hotels, promotedHotels} = storeToRefs(store);
 const {
   searchHotels,
   setFilterValues,
@@ -112,11 +110,6 @@ async function clearStars() {
       <button @click="applyFilters">Apply filters</button>
       <div class="spaceFiller"></div>
     </nav>
-    <main>
-      <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels" />
-      <HotelList v-if="hotels.length > 0" :hotels="hotels" />
-      <h3 v-if="hotels.length === 0 && promotedHotels.length === 0">No rooms match your query</h3>
-    </main>
   </section>
 </template>
 

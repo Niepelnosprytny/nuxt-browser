@@ -57,6 +57,7 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
     return {
         hotels,
         promotedHotels,
+        searchBarValues,
         searchHotels,
         setSearchBarValues,
         setFilterValues,
