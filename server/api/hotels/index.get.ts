@@ -14,10 +14,10 @@ export default defineEventHandler(async (event) => {
 
     try {
         let hotels = await Hotel.find({
-            "location.city": `${form.city}`,
-            "rooms": {$elemMatch: {"available": true, "maxGuests": {$gte: `${form.guests}`}}},
-            "stars": {$gte: form.stars},
-            "reviewsScore": {$gte: form.minReviewsScore}
+            // "location.city": `${form.city}`,
+            // "rooms": {$elemMatch: {"available": true, "maxGuests": {$gte: `${form.guests}`}}},
+            // "stars": {$gte: form.stars},
+            // "reviewsScore": {$gte: form.minReviewsScore}
         });
 
         for (let i = 0; i < hotels.length; i++) {

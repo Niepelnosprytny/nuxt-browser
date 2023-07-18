@@ -50,7 +50,6 @@ const {data: cities} = await useFetch('/api/cities');
                        name="date"
                        range
                        multi-calendars
-                       vertical
                        text-input
                        auto-apply
                        hide-input-icon

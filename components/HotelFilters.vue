@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {useHotelsStore} from '~/store/store';
 
 const store = useHotelsStore();
@@ -56,10 +56,9 @@ async function clearStars() {
 </script>
 
 <template>
-  <section class="mainSection">
     <nav>
-      <h3>Sort by</h3>
-      <div class="inputDiv">
+      <div>
+        <h3>Sort by</h3>
         <select v-model="sortBy">
           <option value="priceAsc">Price ascending</option>
           <option value="priceDesc">Price descending</option>
@@ -67,37 +66,30 @@ async function clearStars() {
           <option value="reviewsDesc">Reviews descending</option>
         </select>
       </div>
+      <div>
+        <h3>Filters</h3>
+        <h4>Stars</h4>
 
-      <h3>Filters</h3>
-
-      <div class="inputDiv">
-        <section class="stars">
-          <label for="stars">Stars</label>
           <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
+                      id="stars"
+                      rating-size="2rem"
                       :rating-value="stars"
                       :read-only="false"
-                      active-color="#FF0000"
-                      id="stars"/>
+                      active-color="red"/>
           <button @click="clearStars().then(() => { renderStars = true })" class="clearStars">Clear stars</button>
-        </section>
       </div>
-
-      <div class="inputDiv">
-        <label for="minReviewsScore">Minimal reviews score</label>
+      <div>
+        <h4>Minimal reviews score</h4>
         <input v-model="minReviewsScore"
                type="number"
-               id="minReviewsScore"
                placeholder="Type value between 0 and 10"
                min="0"
                max="10"
                step="0.1"
-               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-        >
+               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
       </div>
-
-      <h4>Additional filters</h4>
-
       <div class="checkboxList">
+        <h4>Additional filters</h4>
         <section class="checkboxDiv">
           <input v-model="breakfast" type="checkbox" id="breakfast">
           <label for="breakfast" class="checkboxLabel">Breakfast</label>
@@ -108,99 +100,79 @@ async function clearStars() {
         </section>
       </div>
       <button @click="applyFilters">Apply filters</button>
-      <div class="spaceFiller"></div>
     </nav>
-  </section>
 </template>
 
 
 <style scoped>
-main {
-  width: 85%;
-}
-
 nav {
-  background-color: #CCC000;
+  background-color: #060606;
+  color: #F4F4F4;
   margin: 0;
-  padding: 3vh 0;
+  padding: 2rem 0;
   display: flex;
   flex-direction: column;
-  width: 15%;
-  min-height: 100%;
-}
-
-.spaceFiller {
-  min-height: 100%;
-  overflow: hidden;
+  justify-content: flex-start;
+  align-items: center;
+  width: 17.5rem;
+  min-height: 40rem;
 }
 
 select,
-#minReviewsScore,
+input,
 button {
-  margin: auto;
-  min-width: 80%;
-  max-width: 80%;
-  height: 3vh;
+  height: 2rem;
+  width: 15rem;
   text-align: center;
-  font-size: 14px;
-  text-indent: 0;
+  font-size: 1rem;
 }
 
 div {
-  margin: 2vh auto;
-}
-
-label {
-  font-size: 16px;
-  margin-bottom: 2vh;
+  margin: 1.5rem auto;
 }
 
 h3 {
-  margin: 0 auto 1vh auto;
-  font-size: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 h4 {
-  margin: 0 auto;
-  font-size: 18px;
-}
-
-.inputDiv {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.mainSection {
-  display: flex;
-  flex-direction: row;
-  min-height: 70vh;
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .checkboxList {
-  min-width: 100%;
+  width: 100%;
 }
 
 .checkboxDiv {
-  width: 100%;
+  display: flex;
   flex-direction: row;
-  margin: 0.5vh 0;
-  text-align: left;;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.5rem 0;
 }
 
 input[type="checkbox"] {
-  margin: 0 2.5% 0 7.5%;
-  height: 2vh;
-  width: 2vh;
+  margin: 0 0 0 1.5rem;
+  height: 2rem;
+  width: 2rem;
 }
 
-.stars {
-  margin: 0;
+label {
+  font-size: 1rem;
+  width: 13rem;
+  height: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-indent: 0.75rem;
 }
 
 #stars {
-  width: 60%;
+  margin: 0 auto 1rem auto;
+  width: 10rem;
+  justify-content: center;
 }
 
 input[type="checkbox"]:hover,

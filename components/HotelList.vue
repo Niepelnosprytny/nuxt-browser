@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps({
   hotels: {
     type: Array,
@@ -24,7 +24,7 @@ defineProps({
             <section>
               <p>Stars</p>
               <p>
-                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#FF0000"/>
+                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="gold"/>
               </p>
             </section>
             <section>
