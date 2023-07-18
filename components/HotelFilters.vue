@@ -56,7 +56,7 @@ async function clearStars() {
 </script>
 
 <template>
-    <nav>
+    <section class="mainSection">
       <div>
         <h3>Sort by</h3>
         <select v-model="sortBy">
@@ -69,14 +69,13 @@ async function clearStars() {
       <div>
         <h3>Filters</h3>
         <h4>Stars</h4>
-
           <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
                       id="stars"
                       rating-size="2rem"
                       :rating-value="stars"
                       :read-only="false"
-                      active-color="red"/>
-          <button @click="clearStars().then(() => { renderStars = true })" class="clearStars">Clear stars</button>
+                      active-color="#F00000"/>
+          <button @click="clearStars().then(() => { renderStars = true })" id="clearStars">Clear stars</button>
       </div>
       <div>
         <h4>Minimal reviews score</h4>
@@ -89,7 +88,7 @@ async function clearStars() {
                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
       </div>
       <div class="checkboxList">
-        <h4>Additional filters</h4>
+        <h4>Conveniences </h4>
         <section class="checkboxDiv">
           <input v-model="breakfast" type="checkbox" id="breakfast">
           <label for="breakfast" class="checkboxLabel">Breakfast</label>
@@ -100,22 +99,19 @@ async function clearStars() {
         </section>
       </div>
       <button @click="applyFilters">Apply filters</button>
-    </nav>
+    </section>
 </template>
 
 
 <style scoped>
-nav {
-  background-color: #060606;
+.mainSection {
+  background-color: #262626;
   color: #F4F4F4;
-  margin: 0;
-  padding: 2rem 0;
+  padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 17.5rem;
-  min-height: 40rem;
 }
 
 select,
@@ -155,14 +151,14 @@ h4 {
 
 input[type="checkbox"] {
   margin: 0 0 0 1.5rem;
-  height: 2rem;
-  width: 2rem;
+  height: 1.75rem;
+  width: 1.75rem;
 }
 
 label {
   font-size: 1rem;
   width: 13rem;
-  height: 2rem;
+  height: 1.75rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -175,8 +171,18 @@ label {
   justify-content: center;
 }
 
+#clearStars {
+  background-color: #F0000000;
+  border: 0.1rem solid #F00000;
+}
+
+#clearStars:hover {
+  background-color: #F00000;
+}
+
 input[type="checkbox"]:hover,
 .checkboxLabel:hover {
+  background-color: #666666;
   cursor: pointer;
 }
 </style>

@@ -7,10 +7,10 @@ defineProps({
 </script>
 
 <template>
-    <div v-if="hotels.length > 0" v-for="hotel in hotels">
+    <div v-for="hotel in hotels">
       <div v-for="room in hotel.rooms" :key="hotel.id">
         <div
-             class="hotelCard">
+            class="hotelCard">
           <div class="hotelName">
             <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
             <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
@@ -24,7 +24,7 @@ defineProps({
             <section>
               <p>Stars</p>
               <p>
-                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="gold"/>
+                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
               </p>
             </section>
             <section>
@@ -67,8 +67,6 @@ div {
   display: flex;
   flex-direction: column;
   place-content: center;
-  margin: 0;
-  padding: 0;
 }
 
 section {
@@ -79,7 +77,6 @@ section {
 }
 
 p {
-  padding: 0;
   margin: 0 auto 0.5vh auto;
   font-size: 14px;
 }

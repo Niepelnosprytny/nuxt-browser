@@ -11,12 +11,14 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
     <Icon name="material-symbols:hotel" id="hotelIcon"/>
     <h1>Find perfect hotel in best price!</h1>
   </div>
-  <div v-else class="mainDiv" id="mainHOtels">
-    <HotelFilters />
-    <main>
-      <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels" />
-      <HotelList v-if="hotels.length > 0" :hotels="hotels" />
-    </main>
+  <div v-else class="mainDiv">
+      <div id="mainHotels">
+        <HotelFilters id="filters" />
+        <div id="hotelsList">
+          <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
+          <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -25,7 +27,6 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 #mainPlaceholder {
@@ -34,9 +35,26 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
   height: 45rem;
 }
 
+#mainHotels {
+  display: flex;
+  align-items: flex-start;
+}
+
 #hotelIcon {
   color: #F4F4F4;
   font-size: 25rem;
+}
+
+#filters {
+  width: 20rem;
+  position: sticky;
+  align-self: flex-start;
+  top: 0;
+  overflow-y: auto;
+}
+
+#hotelsList {
+  width: 50rem;
 }
 
 h1 {

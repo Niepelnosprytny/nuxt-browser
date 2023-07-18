@@ -14,15 +14,20 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
 }
 
-body {
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #F4F4F4;
+  background-color: #262626;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+  font-weight: 700;
 }
 
 a {
@@ -32,7 +37,7 @@ a {
 button {
   background-color: #F00000;
   color: #F4F4F4;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 button:hover {
@@ -44,6 +49,7 @@ select,
 input,
 button {
   border: 0;
+  border-radius: 0.35rem;
 }
 
 select,

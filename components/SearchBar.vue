@@ -80,7 +80,6 @@ const {data: cities} = await useFetch('/api/cities');
   background-color: #060606;
   color: #F4F4F4;
   padding-bottom: 3rem;
-  width: 100%;
 }
 
 #searchBarForm {
@@ -110,7 +109,8 @@ const {data: cities} = await useFetch('/api/cities');
 #guestsInput,
 .dateInput,
 #searchButton {
-  border: 0.1rem solid black;
+  border: 0.15rem solid #060606;
+  border-radius: 0.35rem;
   font-size: 1.25rem;
   height: 3rem;
 }
