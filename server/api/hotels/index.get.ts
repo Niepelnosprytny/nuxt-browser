@@ -35,6 +35,6 @@ export default defineEventHandler(async (event) => {
         return hotels;
     } catch (e) {
         console.log(e);
-    }
+    }z
 });
 

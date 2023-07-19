@@ -29,6 +29,7 @@ onBeforeMount(() => {
         <HotelFilters @apply-filters="closeModal" @click.stop class="filters modalFilters"/>
       </div>
       <div id="hotelsList">
+        <p v-if="hotels.length === 0 && promotedHotels.length === 0" class="empty">No hotels match your query</p>
         <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
         <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
       </div>
@@ -60,6 +61,16 @@ onBeforeMount(() => {
   font-size: 25rem;
 }
 
+.empty {
+  color: #F4F4F4;
+  font-size: 2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 43rem;
+}
+
 .filters {
   width: 17.5rem;
   position: sticky;
@@ -89,6 +100,11 @@ h1 {
     overflow: hidden;
     flex-direction: column;
     align-items: center;
+  }
+
+  .empty {
+    width: 22.5rem;
+    margin: auto;
   }
 
   #hotelIcon {
