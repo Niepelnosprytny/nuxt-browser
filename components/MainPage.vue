@@ -5,6 +5,11 @@ import {storeToRefs} from "pinia";
 const store = useHotelsStore();
 const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
 let width = ref();
+let renderModal = ref(false);
+
+function closeModal() {
+  renderModal.value = false;
+}
 
 onBeforeMount(() => {
   width.value = window.innerWidth;
@@ -18,8 +23,11 @@ onBeforeMount(() => {
   </div>
   <div v-else class="mainDiv">
     <div id="mainHotels">
-      <HotelFilters v-if="width > 1024" id="filters"/>
-      <button v-if="width <= 1024" id="showFilters">Show filters and sorting</button>
+      <HotelFilters v-if="width > 1024" class="filters"/>
+      <button v-if="width <= 1024" @click="renderModal = !renderModal" id="showFilters">Show filters and sorting</button>
+      <div v-if="renderModal" @click="closeModal" class="modal">
+        <HotelFilters @apply-filters="closeModal" @click.stop class="filters modalFilters"/>
+      </div>
       <div id="hotelsList">
         <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
         <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
@@ -52,7 +60,7 @@ onBeforeMount(() => {
   font-size: 25rem;
 }
 
-#filters {
+.filters {
   width: 17.5rem;
   position: sticky;
   align-self: flex-start;
@@ -98,13 +106,31 @@ h1 {
     height: 2rem;
     margin-bottom: 0.5rem;
     font-size: 1rem;
-    background-color: #060606;
+    background-color: #F0000000;
     border: 0.1rem solid #F00000;
   }
 
   #showFilters:hover,
   #showFilters:active {
     background-color: #F00000;
+  }
+
+  .modal {
+    z-index: 9998;
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF88;
+  }
+
+  .modalFilters {
+    z-index: 9999;
+    width: 22.5rem;
+    margin: auto;
   }
 }
 </style>

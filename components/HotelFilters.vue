@@ -11,6 +11,8 @@ const {
   sortByReviewsDesc
 } = store;
 
+const emit = defineEmits(["applyFilters"]);
+
 const breakfast = ref(false);
 const parking = ref(false);
 const stars = ref(0);
@@ -30,6 +32,8 @@ function applyFilters() {
     minReviewsScore: minReviewsScore
   });
   searchHotels();
+
+  emit('applyFilters');
 }
 
 watch(sortBy, (currentValue) => {
