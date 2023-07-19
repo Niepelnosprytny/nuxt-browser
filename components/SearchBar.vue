@@ -109,22 +109,19 @@ const {data: cities} = await useFetch('/api/cities');
 #guestsInput,
 .dateInput,
 #searchButton {
-  border: 0.15rem solid #060606;
-  border-radius: 0.35rem;
   font-size: 1.25rem;
   height: 3rem;
 }
 
 .dateInput {
+  border-radius: 0.35rem;
+  border: 0.15rem solid #060606;
   background-color: #F4F4F4;
 }
 
-.dateInput:hover {
-  border: 0.1rem solid #666666;
-}
-
-.dateInput:focus {
-  border: 0.15rem solid black;
+.dateInput:focus,
+.dateInput:active {
+  outline: 0.1rem solid #F4F4F4;
 }
 
 @media (max-width: 1024px) {

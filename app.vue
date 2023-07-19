@@ -48,12 +48,17 @@ button:hover {
 select,
 input,
 button {
-  border: 0;
   border-radius: 0.35rem;
+  border: 0.15rem solid #060606;
 }
 
 select,
 input {
   background-color: #F4F4F4;
+}
+
+select:focus,
+input:focus {
+  outline: 0.1rem solid #F4F4F4;
 }
 </style>
