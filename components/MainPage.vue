@@ -38,6 +38,7 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
 #mainHotels {
   display: flex;
   align-items: flex-start;
+  margin-top: 0.5rem;
 }
 
 #hotelIcon {

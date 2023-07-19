@@ -3,118 +3,133 @@ defineProps({
   hotels: {
     type: Array,
     required: true
-  }});
+  }
+});
 </script>
 
 <template>
-    <div v-for="hotel in hotels">
-      <div v-for="room in hotel.rooms" :key="hotel.id">
-        <div
-            class="hotelCard">
-          <div class="hotelName">
+  <div v-for="hotel in hotels">
+    <div v-for="room in hotel.rooms" :key="hotel.id">
+      <div class="hotelCard">
+        <div id="titleRow">
+          <div>
             <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
             <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
           </div>
-          <div class="hotelDetails">
-            <section>
-              <p>City</p>
-              <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
-              <p v-else :title="hotel.location.city"><strong>{{ hotel.location.city.slice(0, 15).trim() }}...</strong></p>
-            </section>
-            <section>
-              <p>Stars</p>
-              <p>
-                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
-              </p>
-            </section>
-            <section>
-              <p>Reviews score</p>
-              <p>
-                <strong>{{ hotel.reviewsScore }}</strong>
-                <Icon name="material-symbols:reviews" color="blue" size="20px"/>
-              </p>
-            </section>
-            <section>
-              <p>Parking</p>
-              <p v-if="hotel.metadata.parking">
-                <Icon name="material-symbols:done" color="green" size="20px"/>
-              </p>
-              <p v-else>
-                <Icon name="material-symbols:close" color="red" size="20px"/>
-              </p>
-            </section>
-            <section>
-              <p>Breakfast</p>
-              <p v-if="room.breakfast">
-                <Icon name="material-symbols:done" color="green" size="20px"/>
-              </p>
-              <p v-else>
-                <Icon name="material-symbols:close" color="red" size="20px"/>
-              </p>
-            </section>
-          </div>
-          <div class="hotelPrice">
+          <div>
             <p>{{ room.price }} ARS</p>
+          </div>
+        </div>
+        <div id="detailsRow">
+          <div>
+            <p>City</p>
+            <div>
+              <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
+              <p v-else :title="hotel.location.city"><strong>
+                {{ hotel.location.city.slice(0, 15).trim() }}...</strong>
+              </p>
+            </div>
+          </div>
+          <div>
+            <p>Stars</p>
+            <div>
+              <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
+            </div>
+          </div>
+          <div>
+            <p>Reviews score</p>
+            <div id="reviewsScoreRow">
+              <strong>{{ hotel.reviewsScore }}</strong>
+              <Icon id="reviewsScoreIcon" class="icon" name="material-symbols:reviews"/>
+            </div>
+          </div>
+          <div>
+            <p>Parking</p>
+            <div>
+              <Icon class="icon iconGreen" v-if="hotel.metadata.parking" name="material-symbols:done"/>
+              <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+            </div>
+          </div>
+          <div>
+            <p>Breakfast</p>
+            <div>
+              <Icon class="icon iconGreen" v-if="room.breakfast" name="material-symbols:done"/>
+              <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <style scoped>
 div {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  place-content: center;
-}
-
-section {
-  width: 20%;
-  display: inline-flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-}
-
-p {
-  margin: 0 auto 0.5vh auto;
-  font-size: 14px;
+  flex-grow: 1;
 }
 
 .hotelCard {
-  background-color: #DDD000;
+  background-color: #060606;
+  color: #F4F4F4;
   display: flex;
-  flex-direction: row;
-  place-content: center;
-  border: 1px solid black;
-  height: 7.5vh;
-  width: 100%;
+  flex-direction: column;
+  border: 0.1rem solid #F4F4F4;
+  height: 10rem;
+  width: 49rem;
+  margin: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .hotelCard:hover {
-  background-color: #BBB000;
+  background-color: #666666;
 }
 
-.hotelName,
-.hotelName > p {
-  text-align: left;
-  padding-left: 5vh;
-  font-size: 20px;
-  font-weight: bold;
-  width: 150%;
-}
-
-.hotelDetails {
+#titleRow, #detailsRow, #reviewsScoreRow {
+  width: 100%;
   flex-direction: row;
-  width: 250%;
   align-items: center;
 }
 
-.hotelPrice,
-.hotelPrice > p {
-  text-align: right;
-  padding-right: 5vh;
-  font-size: 20px;
-  font-weight: bold;
+#titleRow {
+  height: 100%;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+#detailsRow {
+  height: 100%;
+  justify-content: space-evenly;
+}
+
+#detailsRow > div {
+  height: 80%;
+  width: 100%;
+}
+
+#detailsRow > div > div,
+#detailsRow > div > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+.iconGreen {
+  color: green;
+}
+
+.iconRed {
+  color: red;
+}
+
+#reviewsScoreIcon {
+  color: gold;
+  margin-left: 0.5rem;
 }
 </style>
