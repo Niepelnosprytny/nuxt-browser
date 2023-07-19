@@ -145,13 +145,12 @@ h4 {
 .checkboxDiv {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin: 0.5rem 0;
 }
 
 input[type="checkbox"] {
-  margin: 0 0 0 1.5rem;
   height: 1.75rem;
   width: 1.75rem;
 }

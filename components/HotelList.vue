@@ -12,12 +12,12 @@ defineProps({
     <div v-for="room in hotel.rooms" :key="hotel.id">
       <div class="hotelCard">
         <div id="titleRow">
-          <div>
+          <div id="name">
             <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
             <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
           </div>
-          <div>
-            <p>{{ room.price }} ARS</p>
+          <div id="price">
+            <p>{{ room.price }} <span id="currency">ARS</span></p>
           </div>
         </div>
         <div id="detailsRow">
@@ -91,12 +91,31 @@ div {
   width: 100%;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 #titleRow {
   height: 100%;
   font-weight: 700;
   font-size: 1.25rem;
+}
+
+#name, #price {
+  display: flex;
+}
+
+#name {
+  align-items: flex-start;
+  margin-left: 3rem;
+}
+
+#price {
+  align-items: flex-end;
+  margin-right: 3rem;
+}
+
+#currency {
+  color: gold;
 }
 
 #detailsRow {
