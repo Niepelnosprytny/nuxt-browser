@@ -10,8 +10,6 @@ export default defineEventHandler(async (event) => {
         ).form
     );
 
-    console.log(form);
-
     try {
         let hotels = await Hotel.find({
             "location.city": `${form.city}`,

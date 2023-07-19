@@ -55,6 +55,7 @@ const {data: cities} = await useFetch('/api/cities');
                        hide-input-icon
                        prevent-min-max-navigation
                        input-class-name="dateInput"
+                       calendar-class-name="calendar"
                        placeholder="Select date"
                        :min-date="minDate"
                        format="dd MMM yyyy"
@@ -134,6 +135,10 @@ const {data: cities} = await useFetch('/api/cities');
   #searchInput,
   #searchButton {
     width: 20rem;
+  }
+
+  .calendar {
+    width: 18rem;
   }
 }
 </style>

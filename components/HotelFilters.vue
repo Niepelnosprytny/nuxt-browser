@@ -1,10 +1,18 @@
 <script lang="ts" setup>
 import {useHotelsStore} from '~/store/store';
+import {storeToRefs} from "pinia";
 
 const store = useHotelsStore();
 const {
+  sortBy,
+  stars,
+  minReviewsScore,
+  breakfast,
+  parking
+} = storeToRefs(store);
+
+const {
   searchHotels,
-  setFilterValues,
   sortByPriceAsc,
   sortByPriceDesc,
   sortByReviewsAsc,
@@ -13,11 +21,6 @@ const {
 
 const emit = defineEmits(["applyFilters"]);
 
-const breakfast = ref(false);
-const parking = ref(false);
-const stars = ref(0);
-let minReviewsScore = ref(0);
-const sortBy = ref("reviewsAsc");
 let renderStars = ref(true);
 
 function applyFilters() {
@@ -25,12 +28,6 @@ function applyFilters() {
     minReviewsScore.value = 0;
   }
 
-  setFilterValues({
-    breakfast: breakfast,
-    parking: parking,
-    stars: stars,
-    minReviewsScore: minReviewsScore
-  });
   searchHotels();
 
   emit('applyFilters');

@@ -2,12 +2,11 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
     const hotels = ref([]);
     const promotedHotels = ref([]);
     const searchBarValues = ref({});
-    const filterValues = ref({
-        breakfast: false,
-        parking: false,
-        stars: 0,
-        minReviewsScore: 0
-    });
+    const breakfast = ref(false);
+    const parking = ref(false);
+    const stars = ref(0);
+    let minReviewsScore = ref(0);
+    const sortBy = ref("reviewsAsc");
 
     function sortByReviewsAsc() {
         hotels.value = hotels.value.sort((a: never, b: never) => { return sortAsc(a, b, "reviewsScore") });
@@ -33,12 +32,14 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
         searchBarValues.value = value;
     }
 
-    function setFilterValues(value: any) {
-        filterValues.value = value;
-    }
-
     async function searchHotels() {
-        const query = { ...searchBarValues.value, ...filterValues.value };
+        const filters = {
+            breakfast: breakfast.value,
+            parking: parking.value,
+            stars: stars.value,
+            minReviewsScore: minReviewsScore.value
+        }
+        const query = { ...searchBarValues.value, ...filters };
 
         await useFetch("/api/hotels", {
             query: {
@@ -58,9 +59,13 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
         hotels,
         promotedHotels,
         searchBarValues,
+        sortBy,
+        stars,
+        minReviewsScore,
+        breakfast,
+        parking,
         searchHotels,
         setSearchBarValues,
-        setFilterValues,
         sortByReviewsAsc,
         sortByReviewsDesc,
         sortByPriceAsc,
