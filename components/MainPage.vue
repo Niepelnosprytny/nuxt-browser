@@ -4,6 +4,11 @@ import {storeToRefs} from "pinia";
 
 const store = useHotelsStore();
 const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
+let width = ref();
+
+onBeforeMount(() => {
+  width.value = window.innerWidth;
+});
 </script>
 
 <template>
@@ -12,13 +17,14 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
     <h1>Find perfect hotel in best price!</h1>
   </div>
   <div v-else class="mainDiv">
-      <div id="mainHotels">
-        <HotelFilters id="filters" />
-        <div id="hotelsList">
-          <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
-          <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
-        </div>
+    <div id="mainHotels">
+      <HotelFilters v-if="width > 1024" id="filters"/>
+      <button v-if="width <= 1024" id="showFilters">Show filters and sorting</button>
+      <div id="hotelsList">
+        <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
+        <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
       </div>
+    </div>
   </div>
 </template>
 
@@ -70,6 +76,13 @@ h1 {
     flex-direction: column;
   }
 
+  #mainHotels {
+    width: 100%;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+  }
+
   #hotelIcon {
     font-size: 15rem;
   }
@@ -78,6 +91,20 @@ h1 {
     margin: 2rem 0 5rem 0;
     font-size: 2.5rem;
     width: 100%;
+  }
+
+  #showFilters {
+    width: 22.5rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    background-color: #060606;
+    border: 0.1rem solid #F00000;
+  }
+
+  #showFilters:hover,
+  #showFilters:active {
+    background-color: #F00000;
   }
 }
 </style>

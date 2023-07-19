@@ -111,6 +111,7 @@ async function clearStars() {
   background-color: #060606;
   color: #F4F4F4;
   padding-bottom: 2rem;
+  margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -153,21 +154,6 @@ h4 {
   margin: 0.5rem 0;
 }
 
-input[type="checkbox"] {
-  height: 1.75rem;
-  width: 1.75rem;
-}
-
-label {
-  font-size: 1rem;
-  width: 13rem;
-  height: 1.75rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  text-indent: 0.75rem;
-}
-
 #stars {
   margin: 0 auto;
   width: 10rem;
@@ -180,8 +166,25 @@ label {
   border: 0.1rem solid #F00000;
 }
 
-#clearStars:hover {
+#clearStars:hover,
+#clearStars:active {
   background-color: #F00000;
+}
+
+label {
+  font-size: 1rem;
+  width: 13rem;
+  height: 1.75rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-indent: 0.75rem;
+}
+
+input[type="checkbox"] {
+  height: 1.75rem;
+  width: 1.75rem;
+  outline: none;
 }
 
 input[type="checkbox"]:hover,

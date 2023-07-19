@@ -40,7 +40,8 @@ button {
   font-weight: 700;
 }
 
-button:hover {
+button:hover,
+button:active {
   background-color: #FF3333;
   cursor: pointer;
 }

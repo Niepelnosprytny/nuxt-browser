@@ -10,7 +10,7 @@ defineProps({
 <template>
   <div v-for="hotel in hotels">
     <div v-for="room in hotel.rooms" :key="hotel.id">
-      <div class="hotelCard">
+      <div id="hotelCard">
         <div id="titleRow">
           <div id="name">
             <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
@@ -72,7 +72,7 @@ div {
   flex-grow: 1;
 }
 
-.hotelCard {
+#hotelCard {
   background-color: #060606;
   color: #F4F4F4;
   display: flex;
@@ -83,7 +83,8 @@ div {
   margin: 0 0 0.5rem 0.5rem;
 }
 
-.hotelCard:hover {
+#hotelCard:hover,
+#hotelCard:active {
   background-color: #666666;
 }
 
@@ -150,5 +151,36 @@ div {
 #reviewsScoreIcon {
   color: gold;
   margin-left: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  #hotelCard {
+    height: 35rem;
+    width: 22.5rem;
+    margin-left: 0;
+  }
+
+  #titleRow, #detailsRow {
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
+  #titleRow {
+    height: 10rem;
+  }
+
+  #detailsRow > div {
+    width: 100%;
+  }
+
+  #detailsRow > div > P {
+    margin-top: 0.75rem;
+  }
+
+  #name, #price {
+    align-items: center;
+    margin: 0;
+  }
 }
 </style>
