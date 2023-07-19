@@ -47,7 +47,7 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
 }
 
 #filters {
-  width: 20rem;
+  width: 17.5rem;
   position: sticky;
   align-self: flex-start;
   top: 0;
@@ -55,7 +55,7 @@ const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
 }
 
 #hotelsList {
-  width: 50rem;
+  width: 42.5rem;
 }
 
 h1 {

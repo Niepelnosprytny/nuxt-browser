@@ -79,8 +79,8 @@ div {
   flex-direction: column;
   border: 0.1rem solid #F4F4F4;
   height: 10rem;
-  width: 49rem;
-  margin: 0 0.5rem 0.5rem 0.5rem;
+  width: 42rem;
+  margin: 0 0 0.5rem 0.5rem;
 }
 
 .hotelCard:hover {

@@ -19,7 +19,7 @@ const sortBy = ref("reviewsAsc");
 let renderStars = ref(true);
 
 function applyFilters() {
-  if(!minReviewsScore.value) {
+  if (!minReviewsScore.value) {
     minReviewsScore.value = 0;
   }
 
@@ -56,50 +56,53 @@ async function clearStars() {
 </script>
 
 <template>
-    <section class="mainSection">
-      <div>
-        <h3>Sort by</h3>
-        <select v-model="sortBy">
-          <option value="priceAsc">Price ascending</option>
-          <option value="priceDesc">Price descending</option>
-          <option value="reviewsAsc" selected>Reviews ascending</option>
-          <option value="reviewsDesc">Reviews descending</option>
-        </select>
-      </div>
-      <div>
-        <h3>Filters</h3>
-        <h4>Stars</h4>
-          <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
-                      id="stars"
-                      rating-size="2rem"
-                      :rating-value="stars"
-                      :read-only="false"
-                      active-color="#F00000"/>
-          <button @click="clearStars().then(() => { renderStars = true })" id="clearStars">Clear stars</button>
-      </div>
-      <div>
-        <h4>Minimal reviews score</h4>
-        <input v-model="minReviewsScore"
-               type="number"
-               placeholder="Type value between 0 and 10"
-               min="0"
-               max="10"
-               step="0.1"
-               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-      </div>
-      <div class="checkboxList">
-        <h4>Conveniences </h4>
-        <section class="checkboxDiv">
-          <input v-model="breakfast" type="checkbox" id="breakfast">
-          <label for="breakfast" class="checkboxLabel">Breakfast</label>
-        </section>
-        <section class="checkboxDiv">
-          <input v-model="parking" type="checkbox" id="parking">
-          <label for="parking" class="checkboxLabel">Parking</label>
-        </section>
-      </div>
-      <button @click="applyFilters">Apply filters</button>
-    </section>
+  <section class="mainSection">
+    <div>
+      <h3>Sort by</h3>
+      <select v-model="sortBy">
+        <option value="priceAsc">Price ascending</option>
+        <option value="priceDesc">Price descending</option>
+        <option value="reviewsAsc" selected>Reviews ascending</option>
+        <option value="reviewsDesc">Reviews descending</option>
+      </select>
+    </div>
+    <div>
+      <h3>Filters</h3>
+      <h4>Stars</h4>
+      <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
+                  id="stars"
+                  rating-size="2rem"
+                  :rating-value="stars"
+                  :read-only="false"
+                  active-color="#F00000"/>
+      <button v-if="stars > 0"
+              @click="clearStars().then(() => { renderStars = true })"
+              id="clearStars">Clear stars
+      </button>
+    </div>
+    <div>
+      <h4>Minimal reviews score</h4>
+      <input v-model="minReviewsScore"
+             type="number"
+             placeholder="Type value between 0 and 10"
+             min="0"
+             max="10"
+             step="0.1"
+             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+    </div>
+    <div class="checkboxList">
+      <h4>Conveniences </h4>
+      <section class="checkboxDiv">
+        <input v-model="breakfast" type="checkbox" id="breakfast">
+        <label for="breakfast" class="checkboxLabel">Breakfast</label>
+      </section>
+      <section class="checkboxDiv">
+        <input v-model="parking" type="checkbox" id="parking">
+        <label for="parking" class="checkboxLabel">Parking</label>
+      </section>
+    </div>
+    <button @click="applyFilters">Apply filters</button>
+  </section>
 </template>
 
 
@@ -166,12 +169,13 @@ label {
 }
 
 #stars {
-  margin: 0 auto 1rem auto;
+  margin: 0 auto;
   width: 10rem;
   justify-content: center;
 }
 
 #clearStars {
+  margin-top: 1rem;
   background-color: #F0000000;
   border: 0.1rem solid #F00000;
 }
