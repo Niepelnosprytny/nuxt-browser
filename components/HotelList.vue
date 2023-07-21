@@ -74,7 +74,6 @@ div {
 
 #hotelCard {
   background-color: #060606;
-  color: #F4F4F4;
   display: flex;
   flex-direction: column;
   border: 0.1rem solid #F4F4F4;
@@ -138,14 +137,6 @@ div {
 
 .icon {
   font-size: 1.5rem;
-}
-
-.iconGreen {
-  color: green;
-}
-
-.iconRed {
-  color: red;
 }
 
 #reviewsScoreIcon {

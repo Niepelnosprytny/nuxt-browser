@@ -25,7 +25,6 @@ function clearData() {
 <style scoped>
 div {
   background-color: #060606;
-  color: #F4F4F4;
   height: 8rem;
   display: flex;
   flex-direction: column;

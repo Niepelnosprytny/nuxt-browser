@@ -46,7 +46,6 @@ onBeforeMount(() => {
 
 #mainPlaceholder {
   background-color: #262626;
-  color: #F4F4F4;
   height: 45rem;
 }
 
@@ -57,12 +56,10 @@ onBeforeMount(() => {
 }
 
 #hotelIcon {
-  color: #F4F4F4;
   font-size: 25rem;
 }
 
 .empty {
-  color: #F4F4F4;
   font-size: 2rem;
   font-weight: 700;
   display: flex;

@@ -24,10 +24,12 @@ html, body {
   display: flex;
   flex-direction: column;
   background-color: #262626;
+  color: #F4F4F4;
 }
 
 h1, h2, h3, h4, h5, h6, strong {
   font-weight: 700;
+  color: #F4F4F4;
 }
 
 a {
@@ -61,5 +63,12 @@ input {
 select:focus,
 input:focus {
   outline: 0.1rem solid #F4F4F4;
+}
+
+.iconGreen {
+  color: green;
+}
+.iconRed {
+  color: red;
 }
 </style>

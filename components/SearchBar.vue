@@ -79,7 +79,6 @@ const {data: cities} = await useFetch('/api/cities');
 <style>
 #searchBarDiv {
   background-color: #060606;
-  color: #F4F4F4;
   padding-bottom: 3rem;
 }
 

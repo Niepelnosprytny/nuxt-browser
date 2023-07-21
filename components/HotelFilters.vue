@@ -110,7 +110,6 @@ async function clearStars() {
 <style scoped>
 .mainSection {
   background-color: #060606;
-  color: #F4F4F4;
   padding-bottom: 2rem;
   margin-bottom: 0.5rem;
   display: flex;

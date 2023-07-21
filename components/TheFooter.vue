@@ -7,7 +7,6 @@
 <style scoped>
 footer {
   background-color: #060606;
-  color: #F4F4F4;
   height: 5rem;
   display: flex;
   flex-direction: column;
