@@ -1,6 +1,16 @@
 <script lang="ts" setup>
 import {useHotelsStore} from '~/store/store';
 import {storeToRefs} from "pinia";
+import {renderCom} from "nitropack/dist/nitro-169e6e27";
+import {integer} from "vscode-languageserver-types";
+
+const emit = defineEmits(["close"]);
+defineProps({
+  renderClose: {
+    type: Boolean,
+    required: true
+  }
+});
 
 const store = useHotelsStore();
 const {
@@ -19,19 +29,20 @@ const {
   sortByReviewsDesc
 } = store;
 
-const emit = defineEmits(["applyFilters"]);
-
 let renderStars = ref(true);
+let minReviewsScoreVisible = ref(minReviewsScore.value.toString());
 
 function applyFilters() {
-  if (!minReviewsScore.value) {
-    minReviewsScore.value = 0;
-  }
-
   searchHotels();
-
-  emit('applyFilters');
 }
+
+watch(minReviewsScoreVisible, (currentValue) => {
+  if (!currentValue) {
+    minReviewsScore.value = 0;
+  } else {
+    minReviewsScore.value = parseInt(currentValue);
+  }
+});
 
 watch(sortBy, (currentValue) => {
   switch (currentValue) {
@@ -50,6 +61,28 @@ watch(sortBy, (currentValue) => {
   }
 });
 
+watch(stars, () => {
+  applyFilters();
+});
+
+watch(minReviewsScore, (currentValue) => {
+  applyFilters();
+
+  if(currentValue == 0) {
+    minReviewsScoreVisible.value = "";
+  }
+}, {
+  immediate: true
+});
+
+watch(breakfast, () => {
+  applyFilters();
+});
+
+watch(parking, () => {
+  applyFilters();
+});
+
 async function clearStars() {
   stars.value = 0;
   renderStars.value = false;
@@ -58,6 +91,12 @@ async function clearStars() {
 
 <template>
   <section class="mainSection">
+    <div id="iconDIv" v-if="renderClose">
+      <Icon
+          @click="emit('close')"
+            class="icon"
+            name="material-symbols:close"/>
+    </div>
     <div>
       <h3>Sort by</h3>
       <select v-model="sortBy">
@@ -83,7 +122,7 @@ async function clearStars() {
     </div>
     <div>
       <h4>Minimal reviews score</h4>
-      <input v-model="minReviewsScore"
+      <input v-model="minReviewsScoreVisible"
              type="number"
              placeholder="Type value between 0 and 10"
              min="0"
@@ -102,7 +141,6 @@ async function clearStars() {
         <label for="parking" class="checkboxLabel">Parking</label>
       </section>
     </div>
-    <button @click="applyFilters">Apply filters</button>
   </section>
 </template>
 
@@ -110,8 +148,6 @@ async function clearStars() {
 <style scoped>
 .mainSection {
   background-color: #060606;
-  padding-bottom: 2rem;
-  margin-bottom: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -191,5 +227,18 @@ input[type="checkbox"]:hover,
 .checkboxLabel:hover {
   background-color: #666666;
   cursor: pointer;
+}
+
+#iconDIv {
+  margin: 0 0 -3rem 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  font-size: 5rem;
+  color: #F4F4F4;
 }
 </style>

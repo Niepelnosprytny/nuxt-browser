@@ -26,7 +26,7 @@ onBeforeMount(() => {
       <HotelFilters v-if="width > 1024" class="filters"/>
       <button v-if="width <= 1024" @click="renderModal = !renderModal" id="showFilters">Show filters and sorting</button>
       <div v-if="renderModal" @click="closeModal" class="modal">
-        <HotelFilters @apply-filters="closeModal" @click.stop class="filters modalFilters"/>
+        <HotelFilters @close="closeModal" @click.stop :renderClose="renderModal" class="filters modalFilters"/>
       </div>
       <div id="hotelsList">
         <p v-if="hotels.length === 0 && promotedHotels.length === 0" class="empty">No hotels match your query</p>
