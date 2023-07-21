@@ -144,7 +144,7 @@ div {
   margin-left: 0.5rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   #hotelCard {
     height: 35rem;
     width: 22.5rem;

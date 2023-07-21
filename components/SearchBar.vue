@@ -124,7 +124,7 @@ const {data: cities} = await useFetch('/api/cities');
   outline: 0.1rem solid #F4F4F4;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   #searchBarForm {
     flex-direction: column;
   }

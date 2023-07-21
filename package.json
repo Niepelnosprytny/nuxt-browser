@@ -13,7 +13,8 @@
     "@popperjs/core": "^2.11.8",
     "@types/node": "^18",
     "nuxt": "^3.5.2",
-    "nuxt-icon": "^0.4.2"
+    "nuxt-icon": "^0.4.2",
+    "nuxt-viewport": "^2.0.6"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",

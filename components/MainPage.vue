@@ -1,19 +1,15 @@
 <script lang="ts" setup>
 import {useHotelsStore} from "~/store/store";
 import {storeToRefs} from "pinia";
+let viewport = ref(useViewport());
 
 const store = useHotelsStore();
 const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
-let width = ref();
 let renderModal = ref(false);
 
 function closeModal() {
   renderModal.value = false;
 }
-
-onBeforeMount(() => {
-  width.value = window.innerWidth;
-});
 </script>
 
 <template>
@@ -23,8 +19,8 @@ onBeforeMount(() => {
   </div>
   <div v-else class="mainDiv">
     <div id="mainHotels">
-      <HotelFilters v-if="width > 1024" class="filters"/>
-      <button v-if="width <= 1024" @click="renderModal = !renderModal" id="showFilters">Show filters and sorting</button>
+      <HotelFilters v-if="viewport.isGreaterThan('tablet')" class="filters"/>
+      <button v-else @click="renderModal = !renderModal" id="showFilters">Show filters and sorting</button>
       <div v-if="renderModal" @click="closeModal" class="modal">
         <HotelFilters @close="closeModal" @click.stop :renderClose="renderModal" class="filters modalFilters"/>
       </div>
@@ -86,7 +82,7 @@ h1 {
   width: 35rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   #mainPlaceholder {
     height: 100%;
     flex-direction: column;
@@ -111,7 +107,7 @@ h1 {
   h1 {
     margin: 2rem 0 5rem 0;
     font-size: 2.5rem;
-    width: 100%;
+    width: 22.5rem;
   }
 
   #showFilters {
