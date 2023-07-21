@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div v-for="hotel in hotels">
-    <div v-for="room in hotel.rooms" :key="hotel.id">
+    <div v-for="room in hotel.rooms" @click="async () => { await navigateTo(`/hotels/${hotel.id}`) }" :key="hotel.id">
       <div id="hotelCard">
         <div id="titleRow">
           <div id="name">
