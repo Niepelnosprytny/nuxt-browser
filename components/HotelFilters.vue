@@ -2,7 +2,6 @@
 import {useHotelsStore} from '~/store/store';
 import {storeToRefs} from "pinia";
 import {renderCom} from "nitropack/dist/nitro-169e6e27";
-import {integer} from "vscode-languageserver-types";
 
 const emit = defineEmits(["close"]);
 defineProps({

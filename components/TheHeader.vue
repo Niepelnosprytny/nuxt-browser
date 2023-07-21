@@ -1,16 +1,31 @@
 <script lang="ts" setup>
 import {useHotelsStore} from '~/store/store';
+import {storeToRefs} from "pinia";
+
 const store = useHotelsStore();
-const {setSearchBarValues, setFilterValues} = store;
+
+const {
+  city,
+  date,
+  guests,
+  breakfast,
+  parking,
+  minReviewsScore,
+  stars,
+  sortBy,
+  nothing
+} = storeToRefs(store)
 
 function clearData() {
-  setSearchBarValues({});
-  setFilterValues({
-    breakfast: false,
-    parking: false,
-    stars: 0,
-    minReviewsScore: 0
-  });
+  city.value = "";
+  date.value = "";
+  guests.value = "";
+  breakfast.value = false;
+  parking.value = false;
+  minReviewsScore.value = 0;
+  stars.value = 0;
+  sortBy.value = "reviewsAsc";
+  nothing.value = true;
 }
 </script>
 

@@ -1,64 +1,73 @@
 <script lang="ts" setup>
+
+import {reloadNuxtApp} from "#app";
+
 defineProps({
   hotels: {
     type: Array,
     required: true
   }
 });
+
+function redirectToHotel(hotelId: String) {
+  reloadNuxtApp({
+    path: `/hotels/${ hotelId }`
+  });
+}
 </script>
 
 <template>
   <div v-for="hotel in hotels">
-    <div v-for="room in hotel.rooms" @click="async () => { await navigateTo(`/hotels/${hotel.id}`) }" :key="hotel.id">
-      <div id="hotelCard">
-        <div id="titleRow">
-          <div id="name">
-            <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
-            <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
+    <div v-for="room in hotel.rooms" :key="hotel.id">
+        <div @click="redirectToHotel(hotel.id)" id="hotelCard">
+          <div id="titleRow">
+            <div id="name">
+              <p v-if="hotel.name.length <= 33">{{ hotel.name }}</p>
+              <p v-else :title="hotel.name">{{ hotel.name.slice(0, 30).trim() }}...</p>
+            </div>
+            <div id="price">
+              <p>{{ room.price }} <span id="currency">ARS</span></p>
+            </div>
           </div>
-          <div id="price">
-            <p>{{ room.price }} <span id="currency">ARS</span></p>
+          <div id="detailsRow">
+            <div>
+              <p>City</p>
+              <div>
+                <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
+                <p v-else :title="hotel.location.city"><strong>
+                  {{ hotel.location.city.slice(0, 15).trim() }}...</strong>
+                </p>
+              </div>
+            </div>
+            <div>
+              <p>Stars</p>
+              <div>
+                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
+              </div>
+            </div>
+            <div>
+              <p>Reviews score</p>
+              <div id="reviewsScoreRow">
+                <strong>{{ hotel.reviewsScore }}</strong>
+                <Icon id="reviewsScoreIcon" class="icon" name="material-symbols:reviews"/>
+              </div>
+            </div>
+            <div>
+              <p>Parking</p>
+              <div>
+                <Icon class="icon iconGreen" v-if="hotel.metadata.parking" name="material-symbols:done"/>
+                <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+              </div>
+            </div>
+            <div>
+              <p>Breakfast</p>
+              <div>
+                <Icon class="icon iconGreen" v-if="room.breakfast" name="material-symbols:done"/>
+                <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+              </div>
+            </div>
           </div>
         </div>
-        <div id="detailsRow">
-          <div>
-            <p>City</p>
-            <div>
-              <p v-if="hotel.location.city.length <= 18"><strong>{{ hotel.location.city }}</strong></p>
-              <p v-else :title="hotel.location.city"><strong>
-                {{ hotel.location.city.slice(0, 15).trim() }}...</strong>
-              </p>
-            </div>
-          </div>
-          <div>
-            <p>Stars</p>
-            <div>
-              <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
-            </div>
-          </div>
-          <div>
-            <p>Reviews score</p>
-            <div id="reviewsScoreRow">
-              <strong>{{ hotel.reviewsScore }}</strong>
-              <Icon id="reviewsScoreIcon" class="icon" name="material-symbols:reviews"/>
-            </div>
-          </div>
-          <div>
-            <p>Parking</p>
-            <div>
-              <Icon class="icon iconGreen" v-if="hotel.metadata.parking" name="material-symbols:done"/>
-              <Icon class="icon iconRed" v-else name="material-symbols:close"/>
-            </div>
-          </div>
-          <div>
-            <p>Breakfast</p>
-            <div>
-              <Icon class="icon iconGreen" v-if="room.breakfast" name="material-symbols:done"/>
-              <Icon class="icon iconRed" v-else name="material-symbols:close"/>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

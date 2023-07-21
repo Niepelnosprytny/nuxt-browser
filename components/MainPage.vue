@@ -4,7 +4,7 @@ import {storeToRefs} from "pinia";
 let viewport = ref(useViewport());
 
 const store = useHotelsStore();
-const {hotels, promotedHotels, searchBarValues} = storeToRefs(store);
+const {hotels, promotedHotels, city, date, guests, nothing} = storeToRefs(store);
 let renderModal = ref(false);
 
 function closeModal() {
@@ -13,19 +13,19 @@ function closeModal() {
 </script>
 
 <template>
-  <div v-if="JSON.stringify(searchBarValues) === '{}'" class="mainDiv" id="mainPlaceholder">
+  <div v-if="nothing" class="mainDiv" id="mainPlaceholder">
     <Icon name="material-symbols:hotel" id="hotelIcon"/>
     <h1>Find perfect hotel in best price!</h1>
   </div>
   <div v-else class="mainDiv">
     <div id="mainHotels">
-      <HotelFilters v-if="viewport.isGreaterThan('tablet')" class="filters"/>
+      <HotelFilters :renderClose="false" v-if="viewport.isGreaterThan('tablet')" class="filters"/>
       <button v-else @click="renderModal = !renderModal" id="showFilters">Show filters and sorting</button>
       <div v-if="renderModal" @click="closeModal" class="modal">
         <HotelFilters @close="closeModal" @click.stop :renderClose="renderModal" class="filters modalFilters"/>
       </div>
       <div id="hotelsList">
-        <p v-if="hotels.length === 0 && promotedHotels.length === 0" class="empty">No hotels match your query</p>
+        <p v-if="promotedHotels.length === 0 && hotels.length === 0" class="empty">No hotels match your query</p>
         <HotelList v-if="promotedHotels.length > 0" :hotels="promotedHotels"/>
         <HotelList v-if="hotels.length > 0" :hotels="hotels"/>
       </div>

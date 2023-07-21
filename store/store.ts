@@ -1,12 +1,15 @@
 export const useHotelsStore = defineStore('hotelsStore', () => {
     const hotels = ref([]);
     const promotedHotels = ref([]);
-    const searchBarValues = ref({});
+    const city = ref();
+    const date = ref();
+    const guests = ref();
     const breakfast = ref(false);
     const parking = ref(false);
     const stars = ref(0);
     let minReviewsScore = ref(0);
     const sortBy = ref("reviewsAsc");
+    const nothing = ref(true);
 
     function sortByReviewsAsc() {
         hotels.value = hotels.value.sort((a: never, b: never) => { return sortAsc(a, b, "reviewsScore") });
@@ -28,18 +31,20 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
         sortByRoomProps(promotedHotels.value, sortDesc, "price");
     }
 
-    function setSearchBarValues(value: any) {
-        searchBarValues.value = value;
-    }
-
     async function searchHotels() {
+        const searchValues = {
+            city: city.value,
+            date: date.value,
+            guests: guests.value
+        };
+
         const filters = {
             breakfast: breakfast.value,
             parking: parking.value,
             stars: stars.value,
             minReviewsScore: minReviewsScore.value
         }
-        const query = { ...searchBarValues.value, ...filters };
+        const query = { ...searchValues, ...filters };
 
         await useFetch("/api/hotels", {
             query: {
@@ -47,10 +52,15 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
             }
         }).then(
             (res) => {
-                let data: any = res.data.value;
-                promotedHotels.value = data.filter(hotel => hotel.promoted === true);
-                hotels.value = data.filter(hotel => hotel.promoted === false);
-                sortByReviewsAsc();
+                if(res.data.value) {
+                    let data: any = res.data.value;
+                    promotedHotels.value = data.filter(hotel => hotel.promoted === true);
+                    hotels.value = data.filter(hotel => hotel.promoted === false);
+                    sortByReviewsAsc();
+                    nothing.value = false;
+                } else {
+                    nothing.value = true;
+                }
             }
         );
     }
@@ -58,14 +68,16 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
     return {
         hotels,
         promotedHotels,
-        searchBarValues,
+        city,
+        date,
+        guests,
         sortBy,
         stars,
         minReviewsScore,
         breakfast,
         parking,
+        nothing,
         searchHotels,
-        setSearchBarValues,
         sortByReviewsAsc,
         sortByReviewsDesc,
         sortByPriceAsc,

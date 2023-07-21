@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import {ref} from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {add} from "date-fns";
 import {useHotelsStore} from '~/store/store';
+import {storeToRefs} from "pinia";
 
 const store = useHotelsStore();
-const {setSearchBarValues, searchHotels} = store;
+const {
+  city,
+  date,
+  guests
+} = storeToRefs(store);
+const {searchHotels} = store;
 
-const date = ref();
 let minDate: Date | String;
 
 if (new Date().getHours() > 15) {
@@ -19,24 +23,15 @@ if (new Date().getHours() > 15) {
   minDate = new Date();
 }
 
-const Search = async (event: any) => {
-  setSearchBarValues({
-    city: event.target.city.value,
-    date: date["_rawValue"],
-    guests: event.target.guests.value
-  });
-  await searchHotels();
-}
-
 const {data: cities} = await useFetch('/api/cities');
 </script>
 
 <template>
   <div id="searchBarDiv">
-    <form @submit.prevent="Search"
+    <form @submit.prevent="async () => { await searchHotels(); }"
           autocomplete="off"
           id="searchBarForm">
-      <input type="search"
+      <input v-model="city" type="search"
              name="city"
              list="cities"
              id="searchInput"
@@ -64,13 +59,13 @@ const {data: cities} = await useFetch('/api/cities');
                        min-range="1"
                        required/>
       </div>
-        <input type="number"
-               name="guests"
-               id="guestsInput"
-               min="1"
-               step="1"
-               oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-               placeholder="<1> guest(s)" />
+      <input v-model="guests" type="number"
+             name="guests"
+             id="guestsInput"
+             min="1"
+             step="1"
+             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+             placeholder="<1> guest(s)"/>
       <button id="searchButton">Search</button>
     </form>
   </div>
