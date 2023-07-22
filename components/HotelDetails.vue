@@ -189,6 +189,7 @@ div {
 
 button, select {
   font-size: 1rem;
+  height: 2rem;
 }
 
 .dataCategoryDiv > h3 {
@@ -214,7 +215,7 @@ button:active {
 
 #roomSort > * {
   margin: 0 1rem;
-  flex-grow: 1;
+  width: 100%;
 }
 
 #reviewsScoreIcon {
@@ -241,10 +242,8 @@ button:active {
 
   #roomSort {
     flex-direction: column;
-  }
-
-  #roomSort > * {
-    width: 100%;
+    height: 5rem;
+    justify-content: space-around;;
   }
 }
 </style>
