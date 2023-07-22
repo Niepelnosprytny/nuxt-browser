@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   rooms: {
-    type: Array,
+    type: Array<any>,
     required: true
   }
 });
