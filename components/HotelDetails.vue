@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import RoomList from "~/components/RoomList.vue";
-
 defineProps({
   hotel: {
     type: undefined,
@@ -28,7 +26,9 @@ defineProps({
     <li>Pets: {{ hotel.metadata.parking }}</li>
     <li>Room service: {{ hotel.metadata.parking }}</li>
   </ul>
-  <h3>Rooms</h3>
+  <h3>Available rooms</h3>
+  <RoomList :rooms="hotel.rooms" />
+  <h3>unavailable rooms</h3>
   <RoomList :rooms="hotel.rooms" />
 </template>
 
