@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 import {reloadNuxtApp} from "#app";
 
 defineProps({
@@ -42,7 +41,7 @@ function redirectToHotel(hotelId: String) {
             <div>
               <p>Stars</p>
               <div>
-                <NuxtRating :ratingValue="hotel.stars" rating-size="20px" active-color="#F00000"/>
+                <NuxtRating :ratingValue="hotel.stars" rating-size="1.5rem" active-color="#F00000"/>
               </div>
             </div>
             <div>
