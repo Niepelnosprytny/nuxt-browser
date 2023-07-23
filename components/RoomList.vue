@@ -3,12 +3,16 @@ defineProps({
   rooms: {
     type: Array<any>,
     required: true
+  },
+  available: {
+    type: Boolean,
+    required: false
   }
 });
 </script>
 
 <template>
-  <div v-for="room in rooms">
+  <div v-for="room in rooms" :class="available ? '' : 'unavailable'">
     <section>
       <p>Area</p>
       <p>{{ room.area }} m<sup>2</sup></p>
@@ -80,6 +84,10 @@ section > *:first-child {
 
 .icon {
   font-size: 1.5rem;
+}
+
+.unavailable {
+  background-color: #464646;
 }
 
 @media (max-width: 1023px) {

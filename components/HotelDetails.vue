@@ -123,17 +123,17 @@ watch(sortBy, (currentValue) => {
     </div>
   </section>
   <div>
-    <h2>Rooms</h2>
+    <h2>{{ available ? "Available" : "Unavailable" }} rooms</h2>
     <div id="roomSort">
-      <button @click="available = !available">Show {{ available ? "avaiable" : "unavailable" }} rooms</button>
+      <button @click="available = !available">Show {{ available ? "unavailable" : "available" }} rooms</button>
       <select v-model="sortBy">
         <option value="priceAsc" selected>Price ascending</option>
         <option value="priceDesc">Price descending</option>
       </select>
     </div>
   </div>
-  <RoomList v-if="available" :rooms="availableRooms"/>
-  <RoomList v-else :rooms="unavailableRooms"/>
+  <RoomList v-if="available" :rooms="availableRooms" available/>
+  <RoomList v-else :rooms="unavailableRooms" :available="false"/>
   <h1 v-if="availableRooms.length === 0 && unavailableRooms.length === 0">No rooms to display</h1>
 </template>
 
@@ -151,9 +151,12 @@ h1 {
 }
 
 .dataCategoryDiv {
+  flex-direction: row;
+  flex-wrap: wrap;
   font-size: 1rem;
   line-height: 1rem;
   margin: 0;
+  padding: 1rem 0;
   width: 60rem;
   border: 0.1rem solid #F4F4F4;
   background-color: #060606;
@@ -162,6 +165,7 @@ h1 {
 
 .dataBox {
   padding: 0.5rem 0 1rem 0;
+  width: 19rem;
 }
 
 
@@ -170,7 +174,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
 }
 
 #stars {
@@ -194,8 +197,14 @@ button, select {
 
 .dataCategoryDiv > h3 {
   flex-grow: 0;
+  width: 100%;
   margin: 1rem auto;
   font-size: 1.25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 1rem;
 }
 
 button {
