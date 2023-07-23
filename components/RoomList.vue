@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   rooms: {
-    type: Array<any>,
+    type: Array<Object>,
     required: true
   },
   available: {
@@ -12,7 +12,8 @@ defineProps({
 </script>
 
 <template>
-  <div v-for="room in rooms" :class="available ? '' : 'unavailable'">
+  <div v-for="room in rooms"
+       :class="available ? '' : 'unavailable'">
     <section>
       <p>Area</p>
       <p>{{ room.area }} m<sup>2</sup></p>
@@ -27,13 +28,21 @@ defineProps({
     </section>
     <section>
       <p>Family room</p>
-      <Icon class="icon iconGreen" v-if="room.familyRoom" name="material-symbols:done"/>
-      <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+      <Icon v-if="room.familyRoom"
+            class="icon iconGreen"
+            name="material-symbols:done"/>
+      <Icon v-else
+            class="icon iconRed"
+            name="material-symbols:close"/>
     </section>
     <section>
       <p>Breakfast</p>
-      <Icon class="icon iconGreen" v-if="room.breakfast" name="material-symbols:done"/>
-      <Icon class="icon iconRed" v-else name="material-symbols:close"/>
+      <Icon v-if="room.breakfast"
+            class="icon iconGreen"
+            name="material-symbols:done"/>
+      <Icon v-else
+            class="icon iconRed"
+            name="material-symbols:close"/>
     </section>
     <section id="price">
       <p>{{ room.price }} <span id="currency">ARS</span></p>
@@ -41,7 +50,7 @@ defineProps({
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 div {
   background-color: #060606;
   margin: 0 auto 0.5rem auto;
@@ -80,10 +89,6 @@ section > *:first-child {
 
 #currency {
   color: gold;
-}
-
-.icon {
-  font-size: 1.5rem;
 }
 
 .unavailable {

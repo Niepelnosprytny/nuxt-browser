@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {add} from "date-fns";
@@ -31,14 +31,18 @@ const {data: cities} = await useFetch('/api/cities');
     <form @submit.prevent="async () => { await searchHotels(); }"
           autocomplete="off"
           id="searchBarForm">
-      <input v-model="city" type="search"
+      <input v-model="city"
+             type="search"
              name="city"
              list="cities"
              id="searchInput"
              placeholder="Select or type city"
              required>
       <datalist id="cities">
-        <option v-for="city in cities" :value="city">{{ city }}</option>
+        <option v-for="city in cities"
+                :value="city">
+          {{ city }}
+        </option>
       </datalist>
       <div id="dateInputDiv">
         <VueDatePicker v-model="date"
@@ -59,7 +63,8 @@ const {data: cities} = await useFetch('/api/cities');
                        min-range="1"
                        required/>
       </div>
-      <input v-model="guests" type="number"
+      <input v-model="guests"
+             type="number"
              name="guests"
              id="guestsInput"
              min="1"
@@ -71,7 +76,8 @@ const {data: cities} = await useFetch('/api/cities');
   </div>
 </template>
 
-<style>
+//Those styles are not scoped because styling .dateInput and .calendar requires global css access
+<style lang="scss">
 #searchBarDiv {
   background-color: #060606;
   padding-bottom: 3rem;

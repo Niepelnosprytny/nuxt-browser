@@ -1,5 +1,5 @@
 import {IncomingMessage} from "http";
-import formidable from 'formidable';
+import * as formidable from 'formidable';
 import {Hotel} from "../../hotel";
 import * as fs from 'fs';
 

@@ -1,7 +1,6 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import {useHotelsStore} from '~/store/store';
 import {storeToRefs} from "pinia";
-import {renderCom} from "nitropack/dist/nitro-169e6e27";
 
 const emit = defineEmits(["close"]);
 defineProps({
@@ -67,12 +66,10 @@ watch(stars, () => {
 watch(minReviewsScore, (currentValue) => {
   applyFilters();
 
-  if(currentValue == 0) {
+  if (currentValue == 0) {
     minReviewsScoreVisible.value = "";
   }
-}, {
-  immediate: true
-});
+}, {immediate: true});
 
 watch(breakfast, () => {
   applyFilters();
@@ -90,11 +87,13 @@ async function clearStars() {
 
 <template>
   <section class="mainSection">
-    <div id="iconDIv" v-if="renderClose">
+    <div v-if="renderClose"
+         id="iconDIv">
       <Icon
           @click="emit('close')"
-            class="icon"
-            name="material-symbols:close"/>
+          id="closeIcon"
+          class="icon"
+          name="material-symbols:close"/>
     </div>
     <div>
       <h3>Sort by</h3>
@@ -108,7 +107,8 @@ async function clearStars() {
     <div>
       <h3>Filters</h3>
       <h4>Stars</h4>
-      <NuxtRating v-if="renderStars" @rating-selected="rate => { stars = rate }"
+      <NuxtRating v-if="renderStars"
+                  @rating-selected="rate => { stars = rate }"
                   id="stars"
                   rating-size="2rem"
                   :rating-value="stars"
@@ -130,14 +130,24 @@ async function clearStars() {
              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
     </div>
     <div class="checkboxList">
-      <h4>Conveniences </h4>
+      <h4>Conveniences</h4>
       <section class="checkboxDiv">
-        <input v-model="breakfast" type="checkbox" id="breakfast">
-        <label for="breakfast" class="checkboxLabel">Breakfast</label>
+        <input v-model="breakfast"
+               type="checkbox"
+               id="breakfast">
+        <label for="breakfast"
+               class="checkboxLabel">
+          Breakfast
+        </label>
       </section>
       <section class="checkboxDiv">
-        <input v-model="parking" type="checkbox" id="parking">
-        <label for="parking" class="checkboxLabel">Parking</label>
+        <input v-model="parking"
+               type="checkbox"
+               id="parking">
+        <label for="parking"
+               class="checkboxLabel">
+          Parking
+        </label>
       </section>
     </div>
   </section>
@@ -228,16 +238,15 @@ input[type="checkbox"]:hover,
   cursor: pointer;
 }
 
+#closeIcon {
+  font-size: 3rem;
+}
+
 #iconDIv {
   margin: 0 0 -3rem 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-}
-
-.icon {
-  font-size: 5rem;
-  color: #F4F4F4;
 }
 </style>

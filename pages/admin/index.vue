@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {navigateTo, reloadNuxtApp} from "#app";
+import {reloadNuxtApp} from "#app";
 
 let loading = false;
 
-async function submitFile(event: { currentTarget: HTMLFormElement | undefined; }) {
+async function submitFile(event: any) {
   loading = true;
   await fetch("/api/hotels", {
     method: "POST",
@@ -13,7 +13,9 @@ async function submitFile(event: { currentTarget: HTMLFormElement | undefined; }
         if (res.status === 200) {
           loading = false;
           alert("Database has been updated successfully");
-          await navigateTo("/");
+          reloadNuxtApp({
+            path: `/`
+          });
         }
       }
   ).catch(
@@ -41,8 +43,19 @@ async function submitFile(event: { currentTarget: HTMLFormElement | undefined; }
 </template>
 
 <style scoped>
-button {
-  width: 15%;
-  height: 4vh;
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+form {
+  margin: 3rem 0 33rem 0;
+}
+
+button, input {
+  font-size: 1rem;
+  width: 20rem;
+  height: 3rem;
 }
 </style>

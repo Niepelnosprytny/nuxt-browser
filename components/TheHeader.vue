@@ -1,44 +1,22 @@
-<script lang="ts" setup>
-import {useHotelsStore} from '~/store/store';
-import {storeToRefs} from "pinia";
+<script setup lang="ts">
+import {reloadNuxtApp} from "#app";
 
-const store = useHotelsStore();
-
-const {
-  city,
-  date,
-  guests,
-  breakfast,
-  parking,
-  minReviewsScore,
-  stars,
-  sortBy,
-  nothing
-} = storeToRefs(store)
-
-function clearData() {
-  city.value = "";
-  date.value = "";
-  guests.value = "";
-  breakfast.value = false;
-  parking.value = false;
-  minReviewsScore.value = 0;
-  stars.value = 0;
-  sortBy.value = "reviewsAsc";
-  nothing.value = true;
+function redirectToHomepage() {
+  reloadNuxtApp({
+    path: `/`
+  });
 }
 </script>
 
 <template>
-  <NuxtLink @click="clearData" to="/">
-    <div>
+    <div @click="redirectToHomepage">
       <h1>seBooking.com</h1>
     </div>
-  </NuxtLink>
 </template>
 
 <style scoped>
 div {
+  cursor: pointer;
   background-color: #060606;
   height: 8rem;
   display: flex;

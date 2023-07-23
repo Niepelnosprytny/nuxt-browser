@@ -65,9 +65,14 @@ input:focus {
   outline: 0.1rem solid #F4F4F4;
 }
 
+.icon {
+  font-size: 1.5rem;
+}
+
 .iconGreen {
   color: green;
 }
+
 .iconRed {
   color: red;
 }

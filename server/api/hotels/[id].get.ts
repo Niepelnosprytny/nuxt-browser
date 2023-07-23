@@ -1,8 +1,7 @@
 import {Hotel} from "../../hotel";
 
 export default defineEventHandler(async (event) => {
-    //@ts-ignore
-    const id = event.node.req.url.split("/")[3];
+    const id = event.node.req.url!.split("/")[3];
 
     try {
         return await Hotel.find({
@@ -10,6 +9,5 @@ export default defineEventHandler(async (event) => {
         });
     } catch (e) {
         console.log(e);
-    }z
+    }
 });
-

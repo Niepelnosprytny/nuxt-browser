@@ -3,11 +3,9 @@ import * as querystring from "querystring";
 
 export default defineEventHandler(async (event) => {
     const params = JSON.parse(
-        //@ts-ignore
         querystring.decode(
-            //@ts-ignore
-            event.node.req.url?.split("?")[1]
-        ).form
+            event.node.req.url!.split("?")[1]
+        ).form!.toString()
     );
 
     try {
@@ -35,6 +33,5 @@ export default defineEventHandler(async (event) => {
         return hotels;
     } catch (e) {
         console.log(e);
-    }z
+    }
 });
-

@@ -9,6 +9,7 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
     const stars = ref(0);
     let minReviewsScore = ref(0);
     const sortBy = ref("reviewsAsc");
+    //used to show placeholder page before first search
     const nothing = ref(true);
 
     function sortByReviewsAsc() {
@@ -44,6 +45,7 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
             stars: stars.value,
             minReviewsScore: minReviewsScore.value
         }
+
         const query = { ...searchValues, ...filters };
 
         await useFetch("/api/hotels", {
@@ -54,8 +56,8 @@ export const useHotelsStore = defineStore('hotelsStore', () => {
             (res) => {
                 if(res.data.value) {
                     let data: any = res.data.value;
-                    promotedHotels.value = data.filter(hotel => hotel.promoted === true);
-                    hotels.value = data.filter(hotel => hotel.promoted === false);
+                    promotedHotels.value = data.filter((hotel: any) => hotel.promoted === true);
+                    hotels.value = data.filter((hotel: any) => hotel.promoted === false);
                     sortByReviewsAsc();
                     nothing.value = false;
                 } else {
@@ -96,6 +98,8 @@ function sortAsc (a: never, b: never, sortBy: string) {
     }
     return 0;
 }
+
+//Those functions are made to reduce code duplications
 
 function sortDesc (a: never, b: never, sortBy: string) {
     const value1 = a[sortBy];
